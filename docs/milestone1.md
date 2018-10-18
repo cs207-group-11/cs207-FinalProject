@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Differentiation is an increasingly important technique in scientific computing [1]. One of the important applications of differentiation is gradient descent, a technique that is extensively employed in machine learning. Here, the gradient (i.e. multivariate differentiation) of a given function is used to find the minimum of a given cost function[2]. 
+Differentiation is an increasingly important technique in scientific computing [1]. One of the important applications of differentiation is gradient descent, a technique that is extensively employed in machine learning. Here, the gradient (i.e. multivariate differentiation) of a given function is used to find the minimum of a given cost function [2]. 
 
 Despite its emerging importance, traditional approaches to compute the derivatives involve slow and complicated methods such as symbolic differentiation and numerical differentiation.  Both these approaches perform poorly on high-order and multivariate derivatives, which are essential for gradient-based optimization problems. 
 
@@ -11,6 +11,24 @@ In this project, we introduce a software-based method to enable automatic differ
 ## Background
 
 ## How to Use *AutoDiff*
+First, the user needs to install Autodiff package via command line interface using one of the following commands:
+
+`pip install AutoDiff`
+
+or
+
+`easy_install AutoDiff`
+
+After installing this package, the user needs to import it into their project in order to fully utilize its functionality by running the following command:
+
+`import AutoDiff as ad`.
+
+In order to create a `AutoDiff` object, we need to instantiate it by calling the constructor as follows:
+`result = ad.auto_diff(function, eval_point, order)`
+
+The function is a user-predefined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. For multivariate differentiation,  `eval_point` will be a Python dictionary composed of key-value pairs. Each pair consists of variable name (e.g. ‘x’ or ‘y’), and its associated numerical value.
+
+The `result` variable is always a Python list, and its first element is the nominal function value evaluated at `eval_poin`t. Other elements are different order of derivatives, with the second element being the first order derivative, the third element being the second order derivative and so on.
 
 ## Software Organization
 
