@@ -32,7 +32,7 @@ result = ad.auto_diff(function, eval_point, order)
 
 The function is a user-predefined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. For multivariate differentiation,  `eval_point` will be a Python dictionary composed of key-value pairs. Each pair consists of variable name (e.g. ‘x’ or ‘y’), and its associated numerical value.
 
-The `result` variable is always a Python list, and its first element is the nominal function value evaluated at `eval_poin`t. Other elements are different order of derivatives, with the second element being the first order derivative, the third element being the second order derivative and so on.
+The `result` variable is always a Python list, and its first element is the nominal function value evaluated at `eval_point‘. Other elements are different order of derivatives, with the second element being the first order derivative, the third element being the second order derivative and so on.
 
 ## Software Organization
 
