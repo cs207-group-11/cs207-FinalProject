@@ -10,6 +10,25 @@ In this project, we introduce a software-based method to enable automatic differ
 
 ## Background
 
+To implement automatic differentiation, we will use the idea of forward mode differentiation and dual numbers. Forward mode differentiation builds on the chain rule, which allows computing derivatives of nested functions. We use the train rule to evaluate derivative of such functions from the inside to the outside and introduce the dual number to help us compute the function values and the derivatives.
+
+Similar to a complex number, a dual number has both a real part and a dual part. It can be defined in the form x+εx’  with the property that ε^2 =0. It follows that substituting the original variable with its associated dual number to a function, we ultimately get another dual number as follows:
+
+f(x+εx’)=f(x)+εf’(x)x’
+
+In this new dual number, the real part is the numerical value evaluated at x and the dual part is the derivative of the function of interest at x. In this way, we convert the problem of evaluating symbolic derivative to the problem of simplifying a function of dual numbers. 
+
+Combining the idea of chain rule and dual number, we can calculate the derivative of complicated nested functions as well. The algorithm starts with identifying independent variables and replacing them with their dual numbers. With the help of chain rule, we can conduct operations on the dual numbers for our whole function as follows:
+
+f(g(x+εx’))=f(g(x)+εg’(x)x’)=f(g(x))+εf’(g(x))g’(x)x’
+
+Once again,  f(g(x)) is the value of the whole function and  f’(g(x))g’(x)x’ is exactly the derivative of interest. Extending this idea from univariate functions to multivariate functions, the output will be a gradient evaluated at a given point. If we take one step further and deal with multiple input functions (i.e. a vector of functions), the output will be a Jacobian matrix.
+
+To illustrate this process graphically, we have created following schematic with two inputs x and y. Suppose the function of interest is f(x,y)=x^2+3y and we want to get the derivative with respect to x when x=3 and y=4. First, we replace x with its dual number x=3+ε. Then,
+
+We finally get 21+6ε where 21 is the value of the whole function and 6 is the derivative with respect to x.
+
+
 ## How to Use *AutoDiff*
 First, the user needs to install Autodiff package via command line interface using one of the following commands:
 
