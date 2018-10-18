@@ -10,7 +10,7 @@ In this project, we introduce a software-based method to enable automatic differ
 
 ## Background
 
-To implement automatic differentiation, we will use the idea of forward mode differentiation and dual numbers. Forward mode differentiation builds on the chain rule, which allows computing derivatives of nested functions. We use the train rule to evaluate derivative of such functions from the inside to the outside and introduce the dual number to help us compute the function values and the derivatives.
+To implement automatic differentiation, we will use the idea of forward mode differentiation and dual numbers. Forward mode differentiation builds on the chain rule, which allows computing derivatives of nested functions. We use the chain rule to evaluate derivative of such functions from the inside to the outside and introduce the dual number to help us compute the function values and the derivatives.
 
 Similar to a complex number, a dual number has both a real part and a dual part. It can be defined in the form x+εx’  with the property that ε<sup>2</sup> =0. It follows that substituting the original variable with its associated dual number to a function, we ultimately get another dual number as follows:
 
