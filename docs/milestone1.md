@@ -21,16 +21,40 @@ or
 
 After installing this package, the user needs to import it into their project in order to fully utilize its functionality by running the following command:
 
-`import AutoDiff as ad`.
-
+```python
+import AutoDiff as ad
+```
 In order to create a `AutoDiff` object, we need to instantiate it by calling the constructor as follows:
-`result = ad.auto_diff(function, eval_point, order)`
+
+```python
+result = ad.auto_diff(function, eval_point, order)
+```
 
 The function is a user-predefined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. For multivariate differentiation,  `eval_point` will be a Python dictionary composed of key-value pairs. Each pair consists of variable name (e.g. ‘x’ or ‘y’), and its associated numerical value.
 
 The `result` variable is always a Python list, and its first element is the nominal function value evaluated at `eval_poin`t. Other elements are different order of derivatives, with the second element being the first order derivative, the third element being the second order derivative and so on.
 
 ## Software Organization
+
+We will organize the directory structure looks like follows: 
+
+ AutoDiff\
+         AutoDiff\
+               __init__.py
+               AutoDiff.py
+               tests/
+                    __init__.py
+       test.py
+         README.md
+         setup.py 
+         LICENSE
+	 
+In this directory, we have one Python module named AutoDiff.py. This file consists of all the algorithms and data structures and is the core of this project. In addition, we plan to include Numpy in our project to support scientific computation of elementary functions (which are outlined in the implementation section).
+
+A series of tests will be written to provide full coverage of all the functions and classes defined in AutoDiff. They will be stored in the tests folder. In order to facilitate code integration, we will use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
+
+Finally, this package will be distributed through PyPI. This enables the user to conveniently install the package using `pip `or `easy_install` command.
+
 
 ## Implementation
 
