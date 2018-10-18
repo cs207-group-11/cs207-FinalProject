@@ -38,8 +38,8 @@ The `result` variable is always a Python list, and its first element is the nomi
 
 We will organize the directory structure looks like follows: 
 ```
-AutoDiff\
-	AutoDiff\
+AutoDiff/
+	AutoDiff/
 		__init__.py
 		AutoDiff.py
 		tests/
