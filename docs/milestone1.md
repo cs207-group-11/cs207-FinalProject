@@ -13,11 +13,11 @@ In this project, we introduce a software-based method to enable automatic differ
 ## How to Use *AutoDiff*
 First, the user needs to install Autodiff package via command line interface using one of the following commands:
 
-`pip install AutoDiff`
+`pip install [--upgrade] AutoDiff`
 
 or
 
-`easy_install AutoDiff`
+`easy_install [--upgrade] AutoDiff`
 
 After installing this package, the user needs to import it into their project in order to fully utilize its functionality by running the following command:
 
