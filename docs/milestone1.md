@@ -37,18 +37,18 @@ The `result` variable is always a Python list, and its first element is the nomi
 ## Software Organization
 
 We will organize the directory structure looks like follows: 
-
- AutoDiff\
-         AutoDiff\
-               __init__.py
-               AutoDiff.py
-               tests/
-                    __init__.py
-       test.py
-         README.md
-         setup.py 
-         LICENSE
-	 
+```
+AutoDiff\
+	AutoDiff\
+		__init__.py
+		AutoDiff.py
+		tests/
+			__init__.py
+			test.py
+	README.md
+	setup.py 
+	LICENSE
+```	 
 In this directory, we have one Python module named AutoDiff.py. This file consists of all the algorithms and data structures and is the core of this project. In addition, we plan to include Numpy in our project to support scientific computation of elementary functions (which are outlined in the implementation section).
 
 A series of tests will be written to provide full coverage of all the functions and classes defined in AutoDiff. They will be stored in the tests folder. In order to facilitate code integration, we will use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
@@ -96,5 +96,6 @@ This function should return the dual component of the dual number we store under
 
 ## References
 [1] M. T. Heath, “Scientific Computing: An Introductory Survey Chapter 8 - Numerical Integration and Differentiation,”[Online]. Accessed October 18th, 2018. Available: http://heath.cs.illinois.edu/scicomp/notes/chap08.pdf
+
 [2] S. Ruder (2017, Jun, 15th), “An Overview of Gradient Descent Optimization Algorithms,”  *arXiv*.[Online]. Access October 18th, 2018. Available: https://arxiv.org/pdf/1609.04747.pdf
 
