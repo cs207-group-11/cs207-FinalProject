@@ -45,3 +45,7 @@ ad.auto_diff(function=f, eval_point=x, order=1)
 ```
 
 This function should return the dual component of the dual number we store under the hood, which would be the chosen value of alpha.
+
+## References
+
+
