@@ -53,5 +53,6 @@ ad.auto_diff(function=f, eval_point=x, order=1)
 This function should return the dual component of the dual number we store under the hood, which would be the chosen value of alpha.
 
 ## References
-
+[1] M. T. Heath, “Scientific Computing: An Introductory Survey Chapter 8 - Numerical Integration and Differentiation,”[Online]. Accessed October 18th, 2018. Available: http://heath.cs.illinois.edu/scicomp/notes/chap08.pdf
+[2] S. Ruder (2017, Jun, 15th), “An Overview of Gradient Descent Optimization Algorithms,”  *arXiv*.[Online]. Access October 18th, 2018. Available: https://arxiv.org/pdf/1609.04747.pdf
 
