@@ -86,7 +86,7 @@ def my_function(x):
 	return ad.power(x, 3) + 4
 ```
 
-The function above basically represents f(x) = x^3 + 4. It is imperative that the function’s input matches the eval_point we are given. For instance, if `my_function` accepts a single numeric variable, `eval_point` in the auto_diff function cannot be a list of variables. One subtlety is our usage of `ad.power()` instead of `numpy.power()` in the function. Our aim is to write a wrapper for a few different basic elements of `numpy`, including the following: 
+The function above basically represents f(x) = x<sup>3</sup> + 4. It is imperative that the function’s input matches the eval_point we are given. For instance, if `my_function` accepts a single numeric variable, `eval_point` in the auto_diff function cannot be a list of variables. One subtlety is our usage of `ad.power()` instead of `numpy.power()` in the function. Our aim is to write a wrapper for a few different basic elements of `numpy`, including the following: 
 
 + Basic functions: `add`, `subtract`, `multiply`, `divide`, `power`, `sqrt`
 + Trigonometric functions: `sin`, `cos`, `tan`, `arcsin`, `arccos`, `arctan`
