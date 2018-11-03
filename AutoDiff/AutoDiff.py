@@ -1,6 +1,6 @@
 import numpy as np
 ## haven't figured out a good way to import this yet
-import BasicMath as bm
+from . import BasicMath as bm
 
 class DualNumber():
 	def __init__(self, val = None, der = None):
@@ -109,6 +109,10 @@ def atan(x):
 		return np.arctan(x)
 
 class ad():
+	"""
+    >>> 1+1
+    2
+    """
 	def __init__(self):
 		pass
 	def auto_diff(self, function, eval_point, order = 1):
@@ -122,6 +126,8 @@ def user_defined(x):
 	return sin(x) ** 2 + cos(x) * 1 / (x**2)
 
 if __name__ == '__main__':
+	import doctest
+	doctest.testmod()
 	ad = ad()
 	x = 0.2
 	t = ad.auto_diff(function = user_defined, eval_point = x)

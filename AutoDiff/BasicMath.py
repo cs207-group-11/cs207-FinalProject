@@ -1,11 +1,11 @@
 # We define a series of basic mathematics functions in this file
-# that only involve ONE operand (e.g. log(e-base), sqrt etc). 
- 
+# that only involve ONE operand (e.g. log(e-base), sqrt etc).
 import numpy as np
+
 def log(x):
-	if isinstance(x, AutoDiff.DualNumber):
-		pass
-	return np.log(x)
+    if isinstance(x, AutoDiff.DualNumber):
+        pass
+    return np.log(x)
 
 def exp(x):
 	return np.exp(x)
@@ -29,5 +29,4 @@ def acos(x):
 	return np.arccos(x)
 
 def atan(x):
-	return np.arctan(x)
-
+    return np.arctan(x)
