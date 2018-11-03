@@ -2,7 +2,6 @@ import numpy as np
 ## haven't figured out a good way to import this yet
 import BasicMath as bm
 
-
 class DualNumber():
 	def __init__(self, val = None, der = None):
 		# This only applies for the case of scalar
