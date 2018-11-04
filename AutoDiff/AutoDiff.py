@@ -2,7 +2,7 @@ import numpy as np
 ## haven't figured out a good way to import this yet
 from . import BasicMath as bm
 
-class DualNumber():
+class DualNumber:
 	def __init__(self, val = None, der = None):
 		# This only applies for the case of scalar
 		if der is None:
@@ -108,17 +108,17 @@ def atan(x):
 	else:
 		return np.arctan(x)
 
-class ad():
+class ad:
 	"""
     >>> 1+1
     2
     """
 	def __init__(self):
 		pass
+
 	def auto_diff(self, function, eval_point, order = 1):
 		dual = DualNumber(eval_point)
 		return function(dual)
-
 
 # This is a user-defined function. Feel free to change this function to whatever function you are interested in
 # make sure to use the function defined above
