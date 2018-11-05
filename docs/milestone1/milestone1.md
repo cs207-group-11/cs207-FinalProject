@@ -26,7 +26,7 @@ Once again,  f(g(x)) is the value of the whole function and  f’(g(x))g’(x)x�
 
 To illustrate this process graphically, we have created following schematic with two inputs x and y. Suppose the function of interest is f(x,y)=x<sup>2</sup>+3y and we want to get the derivative with respect to x when x=3 and y=4. First, we replace x with its dual number x=3+ε. Then,
 
-![alt text](https://github.com/cs207-group-11/cs207-FinalProject/blob/master/docs/schematic_fig.png "schematics")
+![alt text](https://github.com/cs207-group-11/cs207-FinalProject/blob/master/docs/milestone1/schematic_fig.png "schematics")
 
 We finally get 21+6ε where 21 is the value of the whole function and 6 is the derivative with respect to x.
 
