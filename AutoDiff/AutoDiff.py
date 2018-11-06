@@ -1,6 +1,10 @@
 import numpy as np
 ## haven't figured out a good way to import this yet
-from . import BasicMath as bm
+
+if __name__ == '__main__':
+	import BasicMath as bm
+else:
+	from . import BasicMath as bm
 
 class DualNumber:
 	def __init__(self, val = None, der = None):
@@ -38,10 +42,10 @@ class DualNumber:
 	def __rsub__(self, other):
 		return (-1) * self + other
 
-	def __div__(self, other):
+	def __truediv__(self, other):
 		return self * (other ** (-1))
 
-	def __rdiv__(self, other):
+	def __rtruediv__(self, other):
 		return other*(self ** (-1))
 
 	def __pow__(self, other):
@@ -51,6 +55,7 @@ class DualNumber:
 							 (self.val ** other.val) * bm.log(self.val) * other.der)
 		else:
 			return DualNumber(self.val ** other, other * self.val ** (other - 1) * self.der)
+
 	def __rpow__(self, other):
 		return DualNumber(other ** self.val, other ** self.val * bm.log(other) * self.der)
 
@@ -120,19 +125,15 @@ class ad:
 		dual = DualNumber(eval_point)
 		return function(dual)
 
-# This is a user-defined function. Feel free to change this function to whatever function you are interested in
-# make sure to use the function defined above
-def user_defined(x):
-	return sin(x) ** 2 + cos(x) * 1 / (x**2)
-
 if __name__ == '__main__':
 	import doctest
 	doctest.testmod()
 	ad = ad()
 	x = 0.2
-	t = ad.auto_diff(function = user_defined, eval_point = x)
-	print (type(t))
-	print (t.val)
-	print (t.der)
+	# A user-defined function
+	user_def = lambda x: sin(x) ** 2 + cos(x) * 1 / (x**2)
+	t = ad.auto_diff(function = user_def, eval_point = x)
+	assert(t.val == 24.541133949029593)
+	assert(t.der == -249.5939593878782)
 
 # You can confirm the result using Wolfram Alpha!
