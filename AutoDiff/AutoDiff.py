@@ -107,6 +107,10 @@ class DualNumber:
 	def __neg__(self):
 		return DualNumber(-self.val, -self.der)
 
+	def __pos__(self):
+		return DualNumber(self.val, self.der)
+
+
 def log(x):
 	if isinstance(x, DualNumber):
 		return DualNumber(np.log(x.val), x.der / (x.val) )
@@ -178,11 +182,12 @@ if __name__ == '__main__':
 	doctest.testmod()
 	ad = ad()
 	x = 0.2
-	# A user-defined function
-	user_def = lambda x: sin(x) ** 2 + cos(x) * 1 / (x**2)
+	# # A user-defined function
+	# user_def = lambda x: sin(x) ** 2 + cos(x) * 1 / (x**2)
+	user_def = lambda x: +x
 	t = ad.auto_diff(function = user_def, eval_point = x)
-	assert(t.val == 24.541133949029593)
-	assert(t.der == -249.5939593878782)
-	# assert(t.val == 0.2)
-	# assert(t.der == 1)
+	# assert(t.val == 24.541133949029593)
+	# assert(t.der == -249.5939593878782)
+	assert(t.val == 0.2)
+	assert(t.der == 1)
 
