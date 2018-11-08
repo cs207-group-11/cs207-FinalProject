@@ -119,7 +119,7 @@ docs/
     milestone2/
     	milestone2.ipynb
 	milestone2.md
-    schematic_fig.png
+   	schematic_fig.png
 README.md
 setup.py
 LICENSE
