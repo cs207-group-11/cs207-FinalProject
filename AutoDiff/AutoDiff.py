@@ -137,7 +137,7 @@ class DualNumber:
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the operand before '/'.
-			other (DualNumber object or real number): the operand after '/'.
+			other (DualNumber object or real number): the operand after '/'. 
 
 		RETURNS
 			The result of self/other (DualNumber)
