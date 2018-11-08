@@ -2,7 +2,6 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/cs207-group-11/cs207-FinalProject/badge.svg?branch=master)](https://coveralls.io/github/cs207-group-11/cs207-FinalProject?branch=master)
 
-
 # CS 207 Final Project
 
 ## Group Number: 11
