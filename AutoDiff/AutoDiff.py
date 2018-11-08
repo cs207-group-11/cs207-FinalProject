@@ -245,23 +245,23 @@ class DualNumber:
 
 
 class ad:
-	"""This class defines the derivative process of the user-defined function"""
+	"""This class defines the object that the user will interact with and acts as a wrapper of the underlying DualNumber class"""
 	def __init__(self):
 		"""The constructor for ad Class."""
 		pass
 
 	def auto_diff(self, function, eval_point, order = 1):
-		"""Return the result of the derivative result as a dual number.
+		"""Return the value and derivative of the given founction at given point as a dual number.
 		For now, it only stands for 1st order derivative.
 
 		INPUTS
 			self (ad object)
 			function (function): the function defined by user
-			eval_point (the operand(s) from the user-defined function): the point which the derivative will be computed at.
+			eval_point (a real number): the point which the derivative will be computed at.
 			order (real number): the order of derivative that the user want to compute, default = 1.
 
 		RETURNS
-			The result of the derivative result (DualNumber)
+			The value and derivative (DualNumber)
 
 		EXAMPLES
 		>>> ad = ad()
