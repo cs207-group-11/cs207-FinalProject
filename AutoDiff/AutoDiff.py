@@ -28,8 +28,8 @@ class DualNumber:
 
 		INPUTS
 			self (DualNumber object): The value of the function at a certain stage.
-			other (DualNumber object or real number): 
-				If it is dual number, then add its val and del respectively to the value and del of our recent dual number. 
+			other (DualNumber object or real number):
+				If it is dual number, then add its val and del respectively to the value and del of our recent dual number.
 				If it is a real number, add it to the val of our recent dual number.
 
 		RETURNS
@@ -37,12 +37,12 @@ class DualNumber:
 
 		EXAMPLES
 		>>> ad = ad()
-		>>> x = 1	
+		>>> x = 1
 		>>> user_def = lambda x: x+2
 		>>> t = ad.auto_diff(function = user_def, eval_point = x)
 		>>> print(t.val, t.der)
 		3 1
- 		"""        
+ 		"""
 		if isinstance(other, DualNumber):
 			return DualNumber(self.val + other.val, self.der + other.der)
 		else:
@@ -53,8 +53,8 @@ class DualNumber:
 
 		INPUTS
 			self (DualNumber object): The value of the function at a certain stage.
-			other (DualNumber object or real number): 
-				If it is dual number, then add its val and del respectively to the value and del of our recent dual number. 
+			other (DualNumber object or real number):
+				If it is dual number, then add its val and del respectively to the value and del of our recent dual number.
 				If it is a real number, add it to the val of our recent dual number.
 
 		RETURNS
@@ -62,12 +62,12 @@ class DualNumber:
 
 		EXAMPLES
 		>>> ad = ad()
-		>>> x = 1	
+		>>> x = 1
 		>>> user_def = lambda x: x+2
 		>>> t = ad.auto_diff(function = user_def, eval_point = x)
 		>>> print(t.val, t.der)
 		3 1
- 		"""      
+ 		"""
 		# use __add__ defined above
 		return self + other
 
@@ -180,14 +180,3 @@ class ad:
 if __name__ == '__main__':
 	import doctest
 	doctest.testmod()
-	ad = ad()
-	x = 0.2
-	# # A user-defined function
-	# user_def = lambda x: sin(x) ** 2 + cos(x) * 1 / (x**2)
-	user_def = lambda x: +x
-	t = ad.auto_diff(function = user_def, eval_point = x)
-	# assert(t.val == 24.541133949029593)
-	# assert(t.der == -249.5939593878782)
-	assert(t.val == 0.2)
-	assert(t.der == 1)
-

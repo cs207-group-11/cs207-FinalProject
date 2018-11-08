@@ -14,6 +14,9 @@ def test_init():
 def add_function(x):
     return 2+x+x-3
 
+def sub_function(x):
+    return 3-x
+
 def mul_function(x):
     return 7 + 3.3*x + x*2.7 + 4
 
@@ -26,13 +29,17 @@ def div_function(x):
 def simple_op_complete(x):
     return x*x + x/x + 3*x*2 - 3*(x+2)
 
+def unary(x):
+    return 3*(+x) + (-x)
+
 # Testing addition, subtraction, multiplication and division
 def test_simple_operators():
     a = 3
     # Addition and subtraction
-    t1 = ad().auto_diff(function = add_function, eval_point = a)
-    assert(t1.val == 5)
-    assert(t1.der == 2)
+    t11 = ad().auto_diff(function = add_function, eval_point = a)
+    t12 = ad().auto_diff(function = sub_function, eval_point = a)
+    assert(t11.val == 5 and t11.der == 2)
+    assert(t12.val == 0 and t12.der == -1)
 
     # Multiplication
     t2 = ad().auto_diff(function = mul_function, eval_point = a)
@@ -51,6 +58,11 @@ def test_simple_operators():
     t5 = ad().auto_diff(function = simple_op_complete, eval_point = a)
     assert(t5.val == 13)
     assert(t5.der == 9)
+
+    # Unary
+    t6 = ad().auto_diff(function = unary, eval_point = a)
+    assert(t6.val == 6)
+    assert(t6.der == 2)
 
 # More advanced operators
 def power_scalar(x):
