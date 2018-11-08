@@ -103,8 +103,6 @@ pytest AutoDiff/
 
 ## Software Organization
 
-(needs more details)
-
 The directory structure looks like the following:
 
 ```
@@ -114,7 +112,14 @@ AutoDiff/
     BasicMath.py
     tests/
         __init__.py
-        test.py
+        tests.py
+docs/
+    milestone1/
+    	milestone1.md
+    milestone2/
+    	milestone2.ipynb
+	milestone2.md
+   	schematic_fig.png
 README.md
 setup.py
 LICENSE
@@ -125,9 +130,12 @@ setup.py
 .travis.yml
 ```	 
 
-In this directory, we have two Python modules, named `AutoDiff.py` and `BasicMath.py`. `AutoDiff.py` is the core of the project. In addition, we include elementary functions (outlined in the implementation section) in the  `BasicMath.py` file. These work exactly like Numpy for scalar input.
+In this directory, we have two Python modules, named `AutoDiff.py` and `BasicMath.py`. `AutoDiff.py` is the core of the project and contains the main algorithms and data structures. In addition, we include elementary functions (outlined in the implementation section) in the  `BasicMath.py` file. For scalar input, they work exactly like Numpy. However, if the input is DualNumber object, they will return another DualNumber object containing the results.
 
 A series of tests are written to provide full coverage of all the functions and classes defined in AutoDiff, and are stored in the `tests` folder. In order to facilitate code integration, we use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
+
+For the time being, AutoDiff package is not distributed on PyPI. Instead, any user can download or clone this project repository into their personal work directory. Installing this package can be done via command line interface with `pip3 install -r requirements.txt`. A detailed guide of installation can be found in the **How to Install and Use AutoDiff** section in this guide.
+
 
 ## Implementation
 
