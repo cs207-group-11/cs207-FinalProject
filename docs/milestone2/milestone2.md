@@ -1,7 +1,5 @@
 # Milestone 2: Group 11
 
-# NEEDS EDITING: THIS IS THE SAME DOCUMENT AS MILESTONE 1
-
 ## Introduction
 
 Differentiation is an increasingly important technique in scientific computing [1]. One of the important applications of differentiation is gradient descent, a technique that is extensively employed in machine learning. Here, the gradient (i.e. multivariate differentiation) of a given function is used to find the minimum of a given cost function [2].
@@ -33,89 +31,165 @@ To illustrate this process graphically, we have created following schematic with
 We finally get 21+6ε where 21 is the value of the whole function and 6 is the derivative with respect to x.
 
 
-## How to Use *AutoDiff*
-First, the user needs to install Autodiff package via command line interface using one of the following commands:
+## How to Install and Use *AutoDiff*
 
-`pip install [--upgrade] AutoDiff`
+### Installing via PyPI
+
+This will be implemented by the next milestone.
+
+### Manual Installation
+
+Clone or download our [GitHub repository](https://github.com/HIPS/autograd) and navigate into this directory in your terminal.
+
+Optional: create a virtual environment using `virtualenv`. This gan be downloaded using `pip3` or `easy_install` as follows:
+
+```
+pip3 install virtualenv
+```
 
 or
 
-`easy_install [--upgrade] AutoDiff`
-
-After installing this package, the user needs to import it into their project in order to fully utilize its functionality by running the following command:
-
-```python
-import AutoDiff as ad
 ```
-In order to create a `AutoDiff` object, we need to instantiate it by calling the constructor as follows:
-
-```python
-result = ad.auto_diff(function, eval_point, order)
+sudo easy_install virtualenv
 ```
 
-The `function` is a user-predefined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. For multivariate differentiation,  `eval_point` will be a Python dictionary composed of key-value pairs. Each pair consists of variable name (e.g. ‘x’ or ‘y’), and its associated numerical value.
+Then, create a virtual environment (using Python3), activate this virtual environment, and install the dependencies as follows:
 
-The `result` variable is always a Python list, and its first element is the nominal function value evaluated at `eval_point`. Other elements are different order of derivatives, with the second element being the first order derivative, the third element being the second order derivative and so on.
+```
+virtualenv -p python3 my_env
+source my_env/bin/activate
+pip3 install -r requirements.txt
+```
+
+In order to deactivate the virtual environment, use the following command
+
+```
+deactivate
+```
+
+### Demonstration
+
+Create a python file (we call it `my_project.py`) with the following lines of code:
+
+```python
+from AutoDiff.AutoDiff import ad
+
+grad = ad().auto_diff
+
+# Taking the derivative of 3x
+func = lambda x: 3*x
+
+# Taking the derivative at x=3
+x = 3
+
+t = grad(func,3)
+print(t.val) # 9
+print(t.der) # 3
+```
+
+Then, we can run the file within the terminal as follows:
+
+```
+python3 my_project.py
+```
+
+Voila, we obtain 9 and 3, just as we expected.  
+
+In order to run our tests, the following command can be used:
+
+```
+pytest AutoDiff/
+```
 
 ## Software Organization
 
-We will organize the directory structure looks like follows:
+(needs more details)
+
+The directory structure looks like the following:
 ```
 AutoDiff/
 	AutoDiff/
 		__init__.py
 		AutoDiff.py
+    BasicMath.py
 		tests/
 			__init__.py
 			test.py
 	README.md
 	setup.py
 	LICENSE
+  requirements.txt
+  setup.cfg
+  setup.py
+  .gitignore
+  .travis.yml
 ```	 
-In this directory, we have one Python module named AutoDiff.py. This file consists of all the algorithms and data structures and is the core of this project. In addition, we plan to include Numpy in our project to support scientific computation of elementary functions (which are outlined in the implementation section).
 
-A series of tests will be written to provide full coverage of all the functions and classes defined in AutoDiff. They will be stored in the tests folder. In order to facilitate code integration, we will use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
+In this directory, we have two Python modules, named `AutoDiff.py` and `BasicMath.py`. `AutoDiff.py` is the core of the project. In addition, we include elementary functions (outlined in the implementation section) in the  `BasicMath.py` file. These work exactly like Numpy for scalar input.
 
-Finally, this package will be distributed through PyPI. This enables the user to conveniently install the package using `pip `or `easy_install` command.
-
+A series of tests are written to provide full coverage of all the functions and classes defined in AutoDiff, and are stored in the `tests` folder. In order to facilitate code integration, we use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
 
 ## Implementation
 
-Our main class will be the `AutoDiff` class, however we will also use a `DualNumber` class under the hood to compute derivatives in the forward mode. This class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. The most important function within the `AutoDiff` class is the `auto_diff` method: `auto_diff(function, eval_point, order)`. This function takes as input a `function`, an `eval_point` and an `order` (first derivative, second derivative and so on, defaults to 1). We imagine that a function (for a single variable) can be defined as follows:
+### Core Classes, Data Structures and Important Attributes
+
+(needs more details)
+
+Our main class is the `AutoDiff` class, however also use a `DualNumber` class under the hood to compute derivatives in the forward mode. This class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. The `BasicMath` class consists of elementary functions that cannot be overloaded. This class calls Numpy's methods under the hood so its functionality should be identical to Numpy for scalar input. However, when the input is a `DualNumber` instance, here is where the magic happens, since we return a `DualNumber` instance with the value and derivative computed accordingly.
+
+The most important function within the `AutoDiff` class is the `auto_diff` method: `auto_diff(function, eval_point, order)`. The `function` is a user-defined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. We imagine that a function (for a single variable) can be defined as follows:
 
 ```python
 def my_function(x):
-	return ad.power(x, 3) + 4
+	return x**3 + 4 # with operator overloading
 ```
 
-The function above basically represents f(x) = x<sup>3</sup> + 4. It is imperative that the function’s input matches the eval_point we are given. For instance, if `my_function` accepts a single numeric variable, `eval_point` in the auto_diff function cannot be a list of variables. One subtlety is our usage of `ad.power()` instead of `numpy.power()` in the function. Our aim is to write a wrapper for a few different basic elements of `numpy`, including the following:
+We can then call `auto_diff`, with the function represents f(x) = x<sup>3</sup> + 4. as follows:
 
-+ Basic functions: `add`, `subtract`, `multiply`, `divide`, `power`, `sqrt`
+```python
+auto_diff(my_function, x=3, order=1)
+```
+
+The `result` variable consists of two elements, `val` and `der`. `val` is the nominal function value evaluated at `eval_point` (in this case it would be 31), and the `der` is the derivative of the function at the particular value of x (in this case the derivative will be 27).
+
+For multivariate differentiation, `eval_point` will be a Python dictionary composed of key-value pairs. Each pair consists of variable name (e.g. ‘x’ or ‘y’), and its associated numerical value. `der` would also be a Python dictionary consisting of variable names as keys and their partial derivatives as values. In the case of vector functions of vectors, their partial derivatives will be returned as a Python list.
+
+### Elementary Functions
+
+At the moment, we cover the following functions
+
++ Basic functions that we overload: `add`, `subtract`, `multiply`, `divide`, `power`, `sqrt`, `pos` and `neg`
 + Trigonometric functions: `sin`, `cos`, `tan`, `arcsin`, `arccos`, `arctan`
-+ Exponents and logarithms: `exp`, `log`, `log2`, `log10`
++ Exponents and logarithms: `exp`, `log`
 
-Each function would treat its inputs as dual numbers. This means that we need to know the value as well as the derivative of the function at the input point. We compute the value of the function by calling numpy’s corresponding function. For the elementary functions listed above, we are in the advantageous position of knowing the form of the first derivative. For instance, we know analytically that the derivative of sin(x) is cos(x). Within each of our wrapper functions, we store the analytical derivative and return a dual number consisting of the value of the function as well as the derivative, which is where our implementation of basic functions differs from that of numpy. In addition, we will overload basic operations such as `+,-,*, /` accordingly.
+For the elementary functions listed above, we are in the advantageous position of knowing the form of the first derivative. For instance, we know analytically that the derivative of sin(x) is cos(x). Within each of our wrapper functions, we store the analytical derivative and return a dual number consisting of the value of the function as well as the derivative, which is where our implementation of basic functions differs from that of Numpy.
 
 At the moment, we do not consider arbitrary functions defined by the user including while loops, if statements and recursions. We require that any function be composed of basic functions we defined in the `auto_diff` class. However, an interesting extension of this project would be to compute gradients of arbitrary functions that do not include only basic functions, and a great example of a library that deals with these is the [autograd python library](https://github.com/HIPS/autograd).
 
-Our implementation allows for a scalar function of scalars, a scalar function of vectors, a vector function of scalars and a vector function of vectors. This is done by allowing users to input, in the function parameter, a single function or an array of functions, and in the eval_point parameter, by allowing users to input a scalar value or an dictionary of key value pairs of variables and their corresponding values.
+### External dependencies
 
-Let us imagine that we are trying to compute the derivative of the function in the homework problem: `f = alpha*x+c`. We would write this function, after breaking it down using elementary elementary multiplication and addition functions within our AutoDiff class (with appropriate overloading).  as follows:
+`requirements.txt` outlines our external dependencies, which at the moment consists only of Numpy.
 
-```python
-def f(x, alpha=2):
-	return alpha*x+c
-```
+## Future
 
-We would then compute the first derivative of this function as follows:
+### Aspects yet to implement as well as anticipated changes
 
-```python
-ad = AutoDiff()
-x = 3 # or any other value of the user’s choice)
-ad.auto_diff(function=f, eval_point=x, order=1)
-```
+Our implementation currently allows for a scalar function with a single variable input. We want to extend this to vectors, in order to compute gradients. This involves first, allowing the user to pass in a dictionary of variables and then storing the variables internally. Our existing dunder methods and `BasicMath` functions need to be modified to handle cases where the input is a dictionary rather than a single variable. Dealing with vector input would be the area where our code base would need the most changes.
 
-This function should return the dual component of the dual number we store under the hood, which would be the chosen value of alpha.
+We are also planning to implement some additional features, and would need to work on these for both scalar as well as vector cases. These are outlined below:
+
+- Exponents and logarithms: log10, log2
+- (optional) Hyperbolic functions: sinh, cosh, tanh, arcsinh, arccosh, arctanh
+
+Finally, we plan to allow users to download our Python package via PyPI.
+
+### Additional features
+
+
+
+### Anticipated challenges
+
+
 
 ## References
 [1] M. T. Heath, “Scientific Computing: An Introductory Survey Chapter 8 - Numerical Integration and Differentiation,”[Online]. Accessed October 18th, 2018. Available: http://heath.cs.illinois.edu/scicomp/notes/chap08.pdf
