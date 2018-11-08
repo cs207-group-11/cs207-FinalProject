@@ -39,7 +39,7 @@ class DualNumber:
 			return DualNumber(self.val + other, self.der)
 
 	def __radd__(self, other):
-		"""Return the result of other + self as a dual number use the __add__ above.
+		"""Return the result of other + self as a dual number using the __add__ above.
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the operand after '+'.
@@ -78,7 +78,7 @@ class DualNumber:
 			return DualNumber(self.val * other, self.der * other)
 
 	def __rmul__(self, other):
-		"""Return the result of other * self as a dual number use the __mul__ above.
+		"""Return the result of other * self as a dual number using the __mul__ above.
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the operand after '*'.
@@ -96,7 +96,7 @@ class DualNumber:
 		return self * other
 
 	def __sub__(self, other):
-		"""Return the result of self - other as a dual number use the functions above.
+		"""Return the result of self - other as a dual number using the functions above.
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the operand before '-'.
@@ -115,7 +115,7 @@ class DualNumber:
 		return self + (-1) * other
 
 	def __rsub__(self, other):
-		"""Return the result of other - self as a dual number use the functions above.
+		"""Return the result of other - self as a dual number using the functions above.
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the operand after '-'.
@@ -133,7 +133,7 @@ class DualNumber:
 		return (-1) * self + other
 
 	def __truediv__(self, other):
-		"""Return the result of self/other as a dual number use other functions. (Python 3)
+		"""Return the result of self/other as a dual number using other functions. (Python 3)
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the operand before '/'.
@@ -151,7 +151,7 @@ class DualNumber:
 		return self * (other ** (-1))
 
 	def __rtruediv__(self, other):
-		"""Return the result of other/self as a dual number use other functions. (Python 3)
+		"""Return the result of other/self as a dual number using other functions. (Python 3)
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the operand after '/'.
@@ -169,7 +169,7 @@ class DualNumber:
 		return other*(self ** (-1))
 
 	def __pow__(self, other):
-		"""Return the result of self**(other) as a dual number use the functions above. 
+		"""Return the result of self**(other) as a dual number using the functions above. 
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the base of '**'.
@@ -192,7 +192,7 @@ class DualNumber:
 			return DualNumber(self.val ** other, other * self.val ** (other - 1) * self.der)
 
 	def __rpow__(self, other):
-		"""Return the result of ohter**(self) as a dual number use the functions above. 
+		"""Return the result of ohter**(self) as a dual number using the functions above. 
 
 		INPUTS
 			self (DualNumber object): the recent DualNumber, the exponent of '**'.
