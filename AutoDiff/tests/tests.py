@@ -71,6 +71,12 @@ def power_scalar(x):
 def sqrt_scalar(x):
     return 10 + ad_full.sqrt(2*x+1)
 
+def power_function(x):
+    return 2**x
+
+def power_function_general(x):
+    return x**x
+
 def test_more_operators():
     a = 4
     # Power
@@ -82,6 +88,18 @@ def test_more_operators():
     t2 = ad().auto_diff(function = sqrt_scalar, eval_point = a)
     assert(t2.val == 13)
     assert(t2.der == 1/3)
+
+    # Power function
+    t3 = ad().auto_diff(function = power_function, eval_point = a)
+    assert(t3.val == 16)
+    assert(t3.der == ad_full.log(2)*16)
+    assert(t3.der == np.log(2)*16)
+
+    # Power function general
+    t4 = ad().auto_diff(function = power_function_general, eval_point = a)
+    assert(t4.val == 256)
+    assert(t4.der == 256*(ad_full.log(4)+1))
+    assert(t4.der == 256*(np.log(4)+1))
 
 # Trig Functions
 def sin_cos(x):

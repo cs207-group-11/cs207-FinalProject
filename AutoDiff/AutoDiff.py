@@ -97,12 +97,12 @@ class DualNumber:
 		if isinstance(other, DualNumber):
 			return DualNumber(self.val ** other.val, \
 							 other.val * self.val ** (other.val - 1) * self.der + \
-							 (self.val ** other.val) * bm.log(self.val) * other.der)
+							 (self.val ** other.val) * log(self.val) * other.der)
 		else:
 			return DualNumber(self.val ** other, other * self.val ** (other - 1) * self.der)
 
 	def __rpow__(self, other):
-		return DualNumber(other ** self.val, other ** self.val * bm.log(other) * self.der)
+		return DualNumber(other ** self.val, other ** self.val * log(other) * self.der)
 
 	def __neg__(self):
 		return DualNumber(-self.val, -self.der)
