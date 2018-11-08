@@ -106,23 +106,23 @@ pytest AutoDiff/
 (needs more details)
 
 The directory structure looks like the following:
+
 ```
 AutoDiff/
-	AutoDiff/
-		__init__.py
-		AutoDiff.py
+    __init__.py
+    AutoDiff.py
     BasicMath.py
-		tests/
-			__init__.py
-			test.py
-	README.md
-	setup.py
-	LICENSE
-  requirements.txt
-  setup.cfg
-  setup.py
-  .gitignore
-  .travis.yml
+    tests/
+        __init__.py
+        test.py
+README.md
+setup.py
+LICENSE
+requirements.txt
+setup.cfg
+setup.py
+.gitignore
+.travis.yml
 ```	 
 
 In this directory, we have two Python modules, named `AutoDiff.py` and `BasicMath.py`. `AutoDiff.py` is the core of the project. In addition, we include elementary functions (outlined in the implementation section) in the  `BasicMath.py` file. These work exactly like Numpy for scalar input.
