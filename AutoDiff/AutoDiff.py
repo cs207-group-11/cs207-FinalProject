@@ -43,9 +43,9 @@ class DualNumber:
 		>>> print(t.val, t.der)
 		3 1
  		"""
-		if isinstance(other, DualNumber):
+		try:
 			return DualNumber(self.val + other.val, self.der + other.der)
-		else:
+		except AttributeError:
 			return DualNumber(self.val + other, self.der)
 
 	def __radd__(self, other):
@@ -72,9 +72,9 @@ class DualNumber:
 		return self + other
 
 	def __mul__(self, other):
-		if isinstance(other, DualNumber):
+		try:
 			return DualNumber(self.val * other.val, self.der * other.val + self.val * other.der)
-		else:
+		except AttributeError:
 			return DualNumber(self.val * other, self.der * other)
 
 	def __rmul__(self, other):
@@ -94,11 +94,11 @@ class DualNumber:
 		return other*(self ** (-1))
 
 	def __pow__(self, other):
-		if isinstance(other, DualNumber):
+		try:
 			return DualNumber(self.val ** other.val, \
 							 other.val * self.val ** (other.val - 1) * self.der + \
 							 (self.val ** other.val) * log(self.val) * other.der)
-		else:
+		except AttributeError:
 			return DualNumber(self.val ** other, other * self.val ** (other - 1) * self.der)
 
 	def __rpow__(self, other):
@@ -112,57 +112,57 @@ class DualNumber:
 
 
 def log(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.log(x.val), x.der / (x.val) )
-	else:
+	except AttributeError:
 		return np.log(x)
 
 def exp(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.exp(x.val), x.der * np.exp(x.val))
-	else:
+	except AttributeError:
 		return np.exp(x)
 
 def sqrt(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.sqrt(x.val), 0.5 * (x.val) ** (-0.5) * (x.der))
-	else:
+	except AttributeError:
 		return np.sqrt(x)
 
 def sin(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.sin(x.val), np.cos(x.val) * (x.der))
-	else:
+	except AttributeError:
 		return np.sin(x)
 
 def cos(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.cos(x.val), -np.sin(x.val) * (x.der))
-	else:
+	except AttributeError:
 		return np.cos(x)
 
 def tan(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.tan(x.val), 1/(np.cos(x.val)**2) * (x.der))
-	else:
+	except AttributeError:
 		return np.tan(x)
 
 def asin(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.arcsin(x.val), 1/((1 - x.val**2)**0.5) * (x.der))
-	else:
+	except AttributeError:
 		return np.arcsin(x)
 
 def acos(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.arccos(x.val), -1/((1 - x.val**2)**0.5) * (x.der))
-	else:
+	except AttributeError:
 		return np.arccos(x)
 
 def atan(x):
-	if isinstance(x, DualNumber):
+	try:
 		return DualNumber(np.arctan(x.val), 1/(1 + x.val**2) * (x.der))
-	else:
+	except AttributeError:
 		return np.arctan(x)
 
 class ad:
