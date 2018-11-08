@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from AutoDiff import AutoDiff as ad_full
+from AutoDiff import BasicMath as bm
 from AutoDiff.AutoDiff import ad
 
 epsilon = 1e-7
@@ -69,7 +69,7 @@ def power_scalar(x):
     return 10+x**2
 
 def sqrt_scalar(x):
-    return 10 + ad_full.sqrt(2*x+1)
+    return 10 + bm.sqrt(2*x+1)
 
 def power_function(x):
     return 2**x
@@ -92,25 +92,25 @@ def test_more_operators():
     # Power function
     t3 = ad().auto_diff(function = power_function, eval_point = a)
     assert(t3.val == 16)
-    assert(t3.der == ad_full.log(2)*16)
+    assert(t3.der == bm.log(2)*16)
     assert(t3.der == np.log(2)*16)
 
     # Power function general
     t4 = ad().auto_diff(function = power_function_general, eval_point = a)
     assert(t4.val == 256)
-    assert(t4.der == 256*(ad_full.log(4)+1))
+    assert(t4.der == 256*(bm.log(4)+1))
     assert(t4.der == 256*(np.log(4)+1))
 
 # Trig Functions
 def sin_cos(x):
-    return ad_full.sin(x) + ad_full.cos(x)
+    return bm.sin(x) + bm.cos(x)
 
 def tan_function(x):
-    return ad_full.tan(2*x)
+    return bm.tan(2*x)
 
 def inverse_trig(x):
     # arcsin, arccos, arctan
-    return ad_full.asin(x) - ad_full.acos(x) + ad_full.atan(x)
+    return bm.asin(x) - bm.acos(x) + bm.atan(x)
 
 def test_trig():
     a = 0
@@ -132,7 +132,7 @@ def test_trig():
 # Other functions
 def log_exp_function(x):
     # log, exp
-    return ad_full.log(x) + ad_full.exp(x)
+    return bm.log(x) + bm.exp(x)
 
 def test_other_functions():
     a = 1
@@ -151,15 +151,15 @@ def test_problematic():
         t1 = ad().auto_diff(function = div_zero, eval_point = a)
 
 def test_sanity_checks():
-    assert(ad_full.log(4.1) == np.log(4.1))
-    assert(ad_full.exp(-10.1) == np.exp(-10.1))
-    assert(ad_full.sqrt(112.3) == np.sqrt(112.3))
-    assert(ad_full.sin(4.1) == np.sin(4.1))
-    assert(ad_full.cos(2.2) == np.cos(2.2))
-    assert(ad_full.tan(2) == np.tan(2.0))
-    assert(ad_full.asin(0) == np.arcsin(0))
-    assert(ad_full.acos(0.2) == np.arccos(0.2))
-    assert(ad_full.atan(2) == np.arctan(2))
+    assert(bm.log(4.1) == np.log(4.1))
+    assert(bm.exp(-10.1) == np.exp(-10.1))
+    assert(bm.sqrt(112.3) == np.sqrt(112.3))
+    assert(bm.sin(4.1) == np.sin(4.1))
+    assert(bm.cos(2.2) == np.cos(2.2))
+    assert(bm.tan(2) == np.tan(2.0))
+    assert(bm.asin(0) == np.arcsin(0))
+    assert(bm.acos(0.2) == np.arccos(0.2))
+    assert(bm.atan(2) == np.arctan(2))
 
 test_init()
 test_simple_operators()
