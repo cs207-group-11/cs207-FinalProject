@@ -134,7 +134,7 @@ In this directory, we have two Python modules, named `AutoDiff.py` and `BasicMat
 
 A series of tests are written to provide full coverage of all the functions and classes defined in AutoDiff, and are stored in the `tests` folder. In order to facilitate code integration, we use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
 
-For the time being, AutoDiff package is not distributed on PyPI. Instead, any user can download or clone this project repository into their personal work directory. Installing this package can be done via command line interface with `pip3 install -r requirements.txt`. A detailed guide of installation can be found in the `How to Install and Use AutoDiff` section in this guide.
+For the time being, AutoDiff package is not distributed on PyPI. Instead, any user can download or clone this project repository into their personal work directory. Installing this package can be done via command line interface with `pip3 install -r requirements.txt`. A detailed guide of installation can be found in the **How to Install and Use AutoDiff** section in this guide.
 
 
 ## Implementation
