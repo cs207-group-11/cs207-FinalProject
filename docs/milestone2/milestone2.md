@@ -169,7 +169,7 @@ At the moment, we do not consider arbitrary functions defined by the user includ
 
 ## Future
 
-### Aspects yet to implement as well as anticipated changes
+### Aspects yet to implement
 
 Our implementation currently allows for a scalar function with a single variable input. We want to extend this to vectors, in order to compute gradients. This involves first, allowing the user to pass in a dictionary of variables and then storing the variables internally. Our existing dunder methods and `BasicMath` functions need to be modified to handle cases where the input is a dictionary rather than a single variable. Dealing with vector input would be the area where our code base would need the most changes.
 
@@ -188,7 +188,7 @@ For the next milestone, we plan to implement following new features to fully uti
 
 ### Anticipated challenges
 
-
+We anticipate that since our module will eventually support vector-based operations, some of the data structures and algorithms mentioned above need to be changed. This may lead to careful tuning of other functions such that both scalar and vector input will work.
 
 ## References
 [1] M. T. Heath, “Scientific Computing: An Introductory Survey Chapter 8 - Numerical Integration and Differentiation,”[Online]. Accessed October 18th, 2018. Available: http://heath.cs.illinois.edu/scicomp/notes/chap08.pdf
