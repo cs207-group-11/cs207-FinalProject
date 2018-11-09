@@ -69,6 +69,8 @@ deactivate
 
 ### Demonstration
 
+*Note: a more detailed and interactive demonstration can be found in the accompanying Jupyter Notebook: `Demo.ipynb`*
+
 Create a python file (we call it `my_project.py`) with the following lines of code:
 
 ```python
