@@ -41,7 +41,7 @@ This will be implemented by the next milestone.
 
 Clone or download our [GitHub repository](https://github.com/HIPS/autograd) and navigate into this directory in your terminal.
 
-Optional: create a virtual environment using `virtualenv`. This gan be downloaded using `pip3` or `easy_install` as follows:
+Optional: create a virtual environment using `virtualenv`. This can be downloaded using `pip3` or `easy_install` as follows:
 
 ```
 pip3 install virtualenv
@@ -68,6 +68,8 @@ deactivate
 ```
 
 ### Demonstration
+
+*Note: a more detailed and interactive demonstration can be found in the accompanying Jupyter Notebook: `Demo.ipynb`*
 
 Create a python file (we call it `my_project.py`) with the following lines of code:
 
@@ -141,26 +143,13 @@ For the time being, AutoDiff package is not distributed on PyPI. Instead, any us
 
 ### Core Classes, Data Structures and Important Attributes
 
-(needs more details)
+As an overview, our core classes are the `AutoDiff` class and the `DualNumber` class. `AutoDiff` class is the interface between the program and the user, however under the hood `DualNumber` is extensively used to compute derivatives in the forward mode. `DualNumber` class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. 
 
-Our main class is the `AutoDiff` class, however also use a `DualNumber` class under the hood to compute derivatives in the forward mode. This class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. The `BasicMath` class consists of elementary functions that cannot be overloaded. This class calls Numpy's methods under the hood so its functionality should be identical to Numpy for scalar input. However, when the input is a `DualNumber` instance, here is where the magic happens, since we return a `DualNumber` instance with the value and derivative computed accordingly.
+`AutoDiff` class consists of only one method: `auto_diff`, and it does not have any attributes. `auto_diff` has three arguments: `function`, `eval_point` and `order`. The `function` is a user-defined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. Through `auto_diff`, a real number (i.e. `eval_point`) is converted to a `DualNumber` class object. This `DualNumber` object is then passed to the function provided by the user for computing derivatives. For multivariate differentiation, `eval_point` will be a Python dictionary composed of key-value pairs. Each pair consists of variable name (e.g. ‘x’ or ‘y’), and its associated numerical value. `der` would also be a Python dictionary consisting of variable names as keys and their partial derivatives as values. In the case of vector functions of vectors, their partial derivatives will be returned as a Python list.
 
-The most important function within the `AutoDiff` class is the `auto_diff` method: `auto_diff(function, eval_point, order)`. The `function` is a user-defined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. We imagine that a function (for a single variable) can be defined as follows:
+`DualNumber` class makes the aforementioned real-to-dual conversion possible. It has two key attributes: `self.val` and `self.der`, which are used to store the nominal value and its derivative respetively. Equally important, a collection of basic arithmetic functions are defined in this class to support binary operations (e.g. addition) between `DualNumber` class objects or real numbers. 
 
-```python
-def my_function(x):
-	return x**3 + 4 # with operator overloading
-```
-
-We can then call `auto_diff`, with the function represents f(x) = x<sup>3</sup> + 4. as follows:
-
-```python
-auto_diff(my_function, x=3, order=1)
-```
-
-The `result` variable consists of two elements, `val` and `der`. `val` is the nominal function value evaluated at `eval_point` (in this case it would be 31), and the `der` is the derivative of the function at the particular value of x (in this case the derivative will be 27).
-
-For multivariate differentiation, `eval_point` will be a Python dictionary composed of key-value pairs. Each pair consists of variable name (e.g. ‘x’ or ‘y’), and its associated numerical value. `der` would also be a Python dictionary consisting of variable names as keys and their partial derivatives as values. In the case of vector functions of vectors, their partial derivatives will be returned as a Python list.
+The `BasicMath.py` files takes basic arithmetic functions defined in `DualNumber` one step further. Other than binary operations, it provides support for more advanced functions such as logarithms and trigonometry. It calls Numpy's methods under the hood so its functionality should be identical to Numpy for scalar input. However, when the input is a `DualNumber` instance, it returns a `DualNumber` instance with the value and derivative computed accordingly. 
 
 ### Elementary Functions
 
