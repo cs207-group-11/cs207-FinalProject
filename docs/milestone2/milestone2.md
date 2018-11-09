@@ -141,11 +141,13 @@ For the time being, AutoDiff package is not distributed on PyPI. Instead, any us
 
 ### Core Classes, Data Structures and Important Attributes
 
-Our core classes are the `AutoDiff` class and the `DualNumber` class. `AutoDiff` class is the interface between the program and the user, however under the hood `DualNumber` is extensively used to compute derivatives in the forward mode. `DualNumber` class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. 
+As an overview, our core classes are the `AutoDiff` class and the `DualNumber` class. `AutoDiff` class is the interface between the program and the user, however under the hood `DualNumber` is extensively used to compute derivatives in the forward mode. `DualNumber` class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. 
 
-`AutoDiff` class consists of only one method: `auto_diff`, and for now it does not have any attributes. Through `auto_diff`,
+`AutoDiff` class consists of only one method: `auto_diff`, and it does not have any attributes. Through `auto_diff`, a real number (`eval_point`) is converted to a `DualNumber` class object.  This `DualNumber` object is then passed to the function provided by the user for computing derivatives.
 
-The `BasicMath` class consists of elementary functions that cannot be overloaded. This class calls Numpy's methods under the hood so its functionality should be identical to Numpy for scalar input. However, when the input is a `DualNumber` instance, we return a `DualNumber` instance with the value and derivative computed accordingly. 
+`DualNumber` class makes the aforementioned real-to-dual conversion possible. It has two key attributes: `self.val` and `self.der`, which are used to store the nominal value and its derivative respetively. Equally important, a collection of basic arithmetic functions are defined in this class to support binary operations (e.g. addition) between `DualNumber` class objects or real numbers. 
+
+The `BasicMath` class takes basic arithmetic functions defined in `DualNumber` one step further. Other than binary operations, more advanced functions such as logarithms and trigonometry. This class calls Numpy's methods under the hood so its functionality should be identical to Numpy for scalar input. However, when the input is a `DualNumber` instance, it returns a `DualNumber` instance with the value and derivative computed accordingly. 
 
 The most important function within the `AutoDiff` class is the `auto_diff` method: `auto_diff(function, eval_point, order)`. The `function` is a user-defined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. We imagine that a function (for a single variable) can be defined as follows:
 
