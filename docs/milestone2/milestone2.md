@@ -141,9 +141,11 @@ For the time being, AutoDiff package is not distributed on PyPI. Instead, any us
 
 ### Core Classes, Data Structures and Important Attributes
 
-(needs more details)
+Our core classes are the `AutoDiff` class and the `DualNumber` class. `AutoDiff` class is the interface between the program and the user, however under the hood `DualNumber` is extensively used to compute derivatives in the forward mode. `DualNumber` class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. 
 
-Our main class is the `AutoDiff` class, however also use a `DualNumber` class under the hood to compute derivatives in the forward mode. This class will not be exposed to the user, however it is essential to the internal workings of the `AutoDiff` class. The `BasicMath` class consists of elementary functions that cannot be overloaded. This class calls Numpy's methods under the hood so its functionality should be identical to Numpy for scalar input. However, when the input is a `DualNumber` instance, here is where the magic happens, since we return a `DualNumber` instance with the value and derivative computed accordingly.
+`AutoDiff` class consists of only one method: `auto_diff`, and for now it does not have any attributes. Through `auto_diff`,
+
+The `BasicMath` class consists of elementary functions that cannot be overloaded. This class calls Numpy's methods under the hood so its functionality should be identical to Numpy for scalar input. However, when the input is a `DualNumber` instance, we return a `DualNumber` instance with the value and derivative computed accordingly. 
 
 The most important function within the `AutoDiff` class is the `auto_diff` method: `auto_diff(function, eval_point, order)`. The `function` is a user-defined function that needs to be differentiated, and `eval_point` is the point which the derivative will be computed at. The last argument is the order of derivative that the user wants to compute, and by default this value is set to 1. We imagine that a function (for a single variable) can be defined as follows:
 
