@@ -183,7 +183,7 @@ Finally, we plan to allow users to download our Python package via PyPI.
 ### Additional features
 
 For the next milestone, we plan to implement following new features to fully utilize the automatic differentiation functionality:
-* Root-finder: Using Newton's method, we can use `AutoDiff` to iteratively to find the solution of any differentiable equation.
+* Root-finder: Using Newton's method, we can use `AutoDiff` to iteratively to find the solution of any differentiable equation. This is extremely useful since many equations does not have close-form solution.
 * Gradient Descent: Used extensively in the machine learning, gradient descent becomes the primary tool to find the optimal coefficients given a cost function. We will set a few common gradient descent Python implementations as our benchmark, and compare our model performance with them.
 
 ### Anticipated challenges
