@@ -41,7 +41,7 @@ This will be implemented by the next milestone.
 
 Clone or download our [GitHub repository](https://github.com/HIPS/autograd) and navigate into this directory in your terminal.
 
-Optional: create a virtual environment using `virtualenv`. This gan be downloaded using `pip3` or `easy_install` as follows:
+Optional: create a virtual environment using `virtualenv`. This can be downloaded using `pip3` or `easy_install` as follows:
 
 ```
 pip3 install virtualenv
