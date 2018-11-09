@@ -1,7 +1,7 @@
 # We define a series of basic mathematics functions in this file
 # that only involve ONE operand (e.g. log(e-base), sqrt etc).
 import numpy as np
-from AutoDiff.AutoDiff import DualNumber
+from AutoDiff import DualNumber
 
 def log(x):
 	"""Return the result of log.
@@ -191,8 +191,3 @@ def atan(x):
 		return DualNumber(np.arctan(x.val), 1/(1 + x.val**2) * (x.der))
 	except AttributeError:
 		return np.arctan(x)
-
-if __name__ == '__main__':
-	"""This part runs the doctest"""
-	import doctest
-	doctest.testmod()
