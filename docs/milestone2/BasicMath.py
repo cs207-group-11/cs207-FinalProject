@@ -1,7 +1,7 @@
 # We define a series of basic mathematics functions in this file
 # that only involve ONE operand (e.g. log(e-base), sqrt etc).
 import numpy as np
-from AutoDiff import DualNumber
+from AutoDiff.AutoDiff import DualNumber
 
 def log(x):
 	"""Return the result of log.
