@@ -2,6 +2,98 @@
 # that only involve ONE operand (e.g. log(e-base), sqrt etc).
 import numpy as np
 from AutoDiff.AutoDiff import DualNumber
+from AutoDiff.AutoDiff import Vector
+from collections import defaultdict
+
+def log_vector(x):
+	try:
+		val = np.log(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += x.der[key]/x.val
+		return Vector(val, ders)
+	except AttributeError:
+		return np.log(x)
+
+def exp_vector(x):
+	try:
+		val = np.exp(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += x.der[key] * np.exp(x.val)
+		return Vector(val, ders)
+	except AttributeError:
+		return np.exp(x)
+
+def sqrt_vector(x):
+	try:
+		val = np.sqrt(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 0.5 * (x.val ** (-0.5)) * (x.der[key])
+		return Vector(val, ders)
+	except AttributeError:
+		return np.sqrt(x)
+
+def sin_vector(x):
+	try:
+		val = np.sin(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += np.cos(x.val) * (x.der[key])
+		return Vector(val, ders)
+	except AttributeError:
+		return np.sin(x)
+
+def cos_vector(x):
+	try:
+		val = np.cos(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += -np.sin(x.val) * (x.der[key])
+		return Vector(val, ders)
+	except AttributeError:
+		return np.cos(x)
+
+def tan_vector(x):
+	try:
+		val = np.tan(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 1/(np.cos(x.val)**2) * (x.der[key])
+		return Vector(val, ders)
+	except AttributeError:
+		return np.tan(x)
+
+def asin_vector(x):
+	try:
+		val = np.arcsin(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 1/((1 - x.val**2)**0.5) * (x.der[key])
+		return Vector(val, ders)
+	except AttributeError:
+		return np.arcsin(x)
+
+def acos_vector(x):
+	try:
+		val = np.arccos(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += -1/((1 - x.val**2)**0.5) * (x.der[key])
+		return Vector(val, ders)
+	except AttributeError:
+		return np.arccos(x)
+
+def atan_vector(x):
+	try:
+		val = np.arctan(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 1/(1 + x.val**2) * (x.der[key])
+		return Vector(val, ders)
+	except AttributeError:
+		return np.arctan(x)
 
 def log(x):
 	"""Return the result of log.
@@ -11,14 +103,14 @@ def log(x):
 
 	RETURNS
 		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of log(x). 
+		if x is a real number, then return the value of log(x).
 
 	EXAMPLES
 	>>> x = DualNumber(1)
 	>>> t = log(x)
 	>>> print(t.val, t.der)
 	0.0 1.0
- 	"""    
+ 	"""
 	try:
 		return DualNumber(np.log(x.val), x.der / (x.val) )
 	except AttributeError:
@@ -39,7 +131,7 @@ def exp(x):
 	>>> t = exp(x)
 	>>> print(t.val, t.der)
 	1.0 1.0
- 	"""    
+ 	"""
 	try:
 		return DualNumber(np.exp(x.val), x.der * np.exp(x.val))
 	except AttributeError:
@@ -60,7 +152,7 @@ def sqrt(x):
 	>>> t = sqrt(x)
 	>>> print(t.val, t.der)
 	2.0 0.25
- 	"""    
+ 	"""
 	try:
 		return DualNumber(np.sqrt(x.val), 0.5 * (x.val) ** (-0.5) * (x.der))
 	except AttributeError:
@@ -81,7 +173,7 @@ def sin(x):
 	>>> t = sin(x)
 	>>> print(t.val, t.der)
 	0.0 1.0
- 	"""    
+ 	"""
 	try:
 		return DualNumber(np.sin(x.val), np.cos(x.val) * (x.der))
 	except AttributeError:
@@ -102,7 +194,7 @@ def cos(x):
 	>>> t = cos(x)
 	>>> print(t.val, t.der)
 	1.0 -0.0
- 	"""    
+ 	"""
 	try:
 		return DualNumber(np.cos(x.val), -np.sin(x.val) * (x.der))
 	except AttributeError:
@@ -123,7 +215,7 @@ def tan(x):
 	>>> t = tan(x)
 	>>> print(t.val, t.der)
 	0.0 1.0
- 	"""   
+ 	"""
 	try:
 		return DualNumber(np.tan(x.val), 1/(np.cos(x.val)**2) * (x.der))
 	except AttributeError:
@@ -144,7 +236,7 @@ def asin(x):
 	>>> t = asin(x)
 	>>> print(t.val, t.der)
 	0.0 1.0
- 	"""   
+ 	"""
 	try:
 		return DualNumber(np.arcsin(x.val), 1/((1 - x.val**2)**0.5) * (x.der))
 	except AttributeError:
@@ -165,7 +257,7 @@ def acos(x):
 	>>> t = acos(x)
 	>>> print(t.val, t.der)
 	1.5707963267948966 -1.0
- 	"""   
+ 	"""
 	try:
 		return DualNumber(np.arccos(x.val), -1/((1 - x.val**2)**0.5) * (x.der))
 	except AttributeError:
@@ -186,7 +278,7 @@ def atan(x):
 	>>> t = atan(x)
 	>>> print(t.val, t.der)
 	0.0 1.0
- 	"""   	
+ 	"""
 	try:
 		return DualNumber(np.arctan(x.val), 1/(1 + x.val**2) * (x.der))
 	except AttributeError:
