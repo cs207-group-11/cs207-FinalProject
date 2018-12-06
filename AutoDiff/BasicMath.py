@@ -1,118 +1,29 @@
-# We define a series of basic mathematics functions in this file
-# that only involve ONE operand (e.g. log(e-base), sqrt etc).
 import numpy as np
-from AutoDiff.AutoDiff import DualNumber
-from AutoDiff.AutoDiff import Vector
+from AutoDiff.AutoDiff import Variable
 from collections import defaultdict
-
-def log_vector(x):
-	try:
-		val = np.log(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += x.der[key]/x.val
-		return Vector(val, ders)
-	except AttributeError:
-		return np.log(x)
-
-def exp_vector(x):
-	try:
-		val = np.exp(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += x.der[key] * np.exp(x.val)
-		return Vector(val, ders)
-	except AttributeError:
-		return np.exp(x)
-
-def sqrt_vector(x):
-	try:
-		val = np.sqrt(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += 0.5 * (x.val ** (-0.5)) * (x.der[key])
-		return Vector(val, ders)
-	except AttributeError:
-		return np.sqrt(x)
-
-def sin_vector(x):
-	try:
-		val = np.sin(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += np.cos(x.val) * (x.der[key])
-		return Vector(val, ders)
-	except AttributeError:
-		return np.sin(x)
-
-def cos_vector(x):
-	try:
-		val = np.cos(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += -np.sin(x.val) * (x.der[key])
-		return Vector(val, ders)
-	except AttributeError:
-		return np.cos(x)
-
-def tan_vector(x):
-	try:
-		val = np.tan(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += 1/(np.cos(x.val)**2) * (x.der[key])
-		return Vector(val, ders)
-	except AttributeError:
-		return np.tan(x)
-
-def asin_vector(x):
-	try:
-		val = np.arcsin(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += 1/((1 - x.val**2)**0.5) * (x.der[key])
-		return Vector(val, ders)
-	except AttributeError:
-		return np.arcsin(x)
-
-def acos_vector(x):
-	try:
-		val = np.arccos(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += -1/((1 - x.val**2)**0.5) * (x.der[key])
-		return Vector(val, ders)
-	except AttributeError:
-		return np.arccos(x)
-
-def atan_vector(x):
-	try:
-		val = np.arctan(x.val)
-		ders = defaultdict(float)
-		for key in x.der:
-			ders[key] += 1/(1 + x.val**2) * (x.der[key])
-		return Vector(val, ders)
-	except AttributeError:
-		return np.arctan(x)
 
 def log(x):
 	"""Return the result of log.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of log(x).
+		if x is a Variable, then return a Variable with val and der for that single variable.
+		if x is a real number, then return the value of np.log(x).
 
 	EXAMPLES
-	>>> x = DualNumber(1)
+	>>> x = Variable(1, name='x')
 	>>> t = log(x)
-	>>> print(t.val, t.der)
+	>>> print(t.val, t.der['x'])
 	0.0 1.0
  	"""
 	try:
-		return DualNumber(np.log(x.val), x.der / (x.val) )
+		val = np.log(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += x.der[key]/x.val
+		return Variable(val, ders)
 	except AttributeError:
 		return np.log(x)
 
@@ -120,20 +31,24 @@ def exp(x):
 	"""Return the result of exp.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of e^x.
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of np.exp(x).
 
 	EXAMPLES
-	>>> x = DualNumber(0)
+	>>> x = Variable(0, name='x')
 	>>> t = exp(x)
-	>>> print(t.val, t.der)
+	>>> print(t.val, t.der['x'])
 	1.0 1.0
  	"""
 	try:
-		return DualNumber(np.exp(x.val), x.der * np.exp(x.val))
+		val = np.exp(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += x.der[key] * np.exp(x.val)
+		return Variable(val, ders)
 	except AttributeError:
 		return np.exp(x)
 
@@ -141,148 +56,194 @@ def sqrt(x):
 	"""Return the square root.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the the square root of x.
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the the square root of x, np.sqrt(x).
 
 	EXAMPLES
-	>>> x = DualNumber(4)
+	>>> x = Variable(4, name='x')
 	>>> t = sqrt(x)
-	>>> print(t.val, t.der)
+	>>> print(t.val, t.der['x'])
 	2.0 0.25
  	"""
 	try:
-		return DualNumber(np.sqrt(x.val), 0.5 * (x.val) ** (-0.5) * (x.der))
+		val = np.sqrt(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 0.5 * (x.val ** (-0.5)) * (x.der[key])
+		return Variable(val, ders)
 	except AttributeError:
 		return np.sqrt(x)
 
 def sin(x):
-	"""Return the sin.
+	"""Return the sine.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of sin(x).
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of np.sin(x).
 
 	EXAMPLES
-	>>> x = DualNumber(0)
+	>>> x = Variable(0, name='x')
 	>>> t = sin(x)
-	>>> print(t.val, t.der)
+	>>> print(t.val, t.der['x'])
 	0.0 1.0
  	"""
 	try:
-		return DualNumber(np.sin(x.val), np.cos(x.val) * (x.der))
+		val = np.sin(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += np.cos(x.val) * (x.der[key])
+		return Variable(val, ders)
 	except AttributeError:
 		return np.sin(x)
 
 def cos(x):
-	"""Return the cos.
+	"""Return the cosine.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of cos(x).
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of np.cos(x).
 
 	EXAMPLES
-	>>> x = DualNumber(0)
+	>>> x = Variable(0, name='x')
 	>>> t = cos(x)
-	>>> print(t.val, t.der)
-	1.0 -0.0
+	>>> print(t.val, t.der['x'])
+	1.0 0.0
  	"""
 	try:
-		return DualNumber(np.cos(x.val), -np.sin(x.val) * (x.der))
+		val = np.cos(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += -np.sin(x.val) * (x.der[key])
+		return Variable(val, ders)
 	except AttributeError:
 		return np.cos(x)
 
 def tan(x):
-	"""Return the tan.
+	"""Return the tangent.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of tan(x).
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of np.tan(x).
 
 	EXAMPLES
-	>>> x = DualNumber(0)
+	>>> x = Variable(0, name='x')
 	>>> t = tan(x)
-	>>> print(t.val, t.der)
+	>>> print(t.val, t.der['x'])
 	0.0 1.0
  	"""
 	try:
-		return DualNumber(np.tan(x.val), 1/(np.cos(x.val)**2) * (x.der))
+		val = np.tan(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 1/(np.cos(x.val)**2) * (x.der[key])
+		return Variable(val, ders)
 	except AttributeError:
 		return np.tan(x)
 
-def asin(x):
-	"""Return the asin.
+def arcsin(x):
+	"""Return the inverse sine or the arcsin.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of asin(x).
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of arcsin(x).
 
 	EXAMPLES
-	>>> x = DualNumber(0)
-	>>> t = asin(x)
-	>>> print(t.val, t.der)
+	>>> x = Variable(0, name='x')
+	>>> t = arcsin(x)
+	>>> print(t.val, t.der['x'])
 	0.0 1.0
  	"""
 	try:
-		return DualNumber(np.arcsin(x.val), 1/((1 - x.val**2)**0.5) * (x.der))
+		val = np.arcsin(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 1/((1 - x.val**2)**0.5) * (x.der[key])
+		return Variable(val, ders)
 	except AttributeError:
 		return np.arcsin(x)
 
-def acos(x):
-	"""Return the acos.
+def arccos(x):
+	"""Return the inverse cosine or the arccos.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of acos(x).
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of arccos(x).
 
 	EXAMPLES
-	>>> x = DualNumber(0)
-	>>> t = acos(x)
-	>>> print(t.val, t.der)
+	>>> x = Variable(0, name='x')
+	>>> t = arccos(x)
+	>>> print(t.val, t.der['x'])
 	1.5707963267948966 -1.0
  	"""
 	try:
-		return DualNumber(np.arccos(x.val), -1/((1 - x.val**2)**0.5) * (x.der))
+		val = np.arccos(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += -1/((1 - x.val**2)**0.5) * (x.der[key])
+		return Variable(val, ders)
 	except AttributeError:
 		return np.arccos(x)
 
-def atan(x):
-	"""Return the atan.
+def arctan(x):
+	"""Return the inverse tangent or the arctan.
 
 	INPUTS
-		x (DualNumber object or real number)
+		x (Variable object or real number)
 
 	RETURNS
-		if x is a DualNumber, then return a DualNumber with val and der.
-		if x is a real number, then return the value of atan(x).
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of arctan(x).
 
 	EXAMPLES
-	>>> x = DualNumber(0)
-	>>> t = atan(x)
-	>>> print(t.val, t.der)
+	>>> x = Variable(0, name='x')
+	>>> t = arctan(x)
+	>>> print(t.val, t.der['x'])
 	0.0 1.0
  	"""
 	try:
-		return DualNumber(np.arctan(x.val), 1/(1 + x.val**2) * (x.der))
+		val = np.arctan(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += 1/(1 + x.val**2) * (x.der[key])
+		return Variable(val, ders)
 	except AttributeError:
 		return np.arctan(x)
+
+def cosh(x):
+	"""The hyperbolic sine or the sinh
+
+	"""
+	raise NotImplementedError()
+
+def cosh(x):
+	"""The hyperbolic cosine or the cosh
+
+	"""
+	raise NotImplementedError()
+
+def tanh(x):
+	"""The hyperbolic tangent or the tanh
+
+	"""
+	raise NotImplementedError()
 
 if __name__ == '__main__':
 	"""This part runs the doctest"""
