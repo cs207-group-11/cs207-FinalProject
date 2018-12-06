@@ -111,41 +111,61 @@ def test_bm_vector():
     np.testing.assert_approx_equal(t2.der['y'],1/(2*np.sqrt(3)))
 
 # Trig Functions
-def sin_cos(x):
-    return bm.sin(x) + bm.cos(x)
+def sin_cos(x,y):
+    return bm.sin(x) + bm.cos(y)
 
-def tan_function(x):
-    return bm.tan(2*x)
+def tan_function(x,y):
+    return bm.tan(2*x*y)
 
-def inverse_trig(x):
-    return bm.arcsin(x) - bm.arccos(x) + bm.arctan(x)
+def inverse_trig(x,y,z):
+    return bm.arcsin(x) - bm.arccos(y) + bm.arctan(z)
 
 def test_trig_vector():
+    a = Variable(val=1, name='x')
+    b = Variable(val=2, name='y')
+
+    t1 = Diff().auto_diff(function = sin_cos, eval_point = [a,b])
+    np.testing.assert_approx_equal(t1.val, np.sin(1) + np.cos(2))
+    np.testing.assert_approx_equal(t1.der['x'], np.cos(1))
+    np.testing.assert_approx_equal(t1.der['y'], -np.sin(2))
+
+    t2 = Diff().auto_diff(function = tan_function, eval_point = [a,b])
+    np.testing.assert_approx_equal(t2.val, np.tan(4))
+    np.testing.assert_approx_equal(t2.der['x'], 4*(1/(np.cos(4)))**2)
+    np.testing.assert_approx_equal(t2.der['y'], 2*(1/(np.cos(4)))**2)
+
     a = Variable(val=0, name='x')
-    t1 = Diff().auto_diff(function = sin_cos, eval_point = [a])
-    assert(t1.val == 1)
-    assert(t1.der['x'] == 1)
+    b = Variable(val=0, name='y')
+    c = Variable(val=0, name='z')
 
-    t2 = Diff().auto_diff(function = tan_function, eval_point = [a])
-    assert(t2.val == 0)
-    assert(t2.der['x'] == 2)
-
-    t3 = Diff().auto_diff(function = inverse_trig, eval_point = [a])
+    t3 = Diff().auto_diff(function = inverse_trig, eval_point = [a,b,c])
     np.testing.assert_approx_equal(t3.val, -np.pi/2)
-    np.testing.assert_approx_equal(t3.der['x'], 3)
+    np.testing.assert_approx_equal(t3.der['x'], 1)
+    np.testing.assert_approx_equal(t3.der['y'], 1)
+    np.testing.assert_approx_equal(t3.der['z'], 1)
 
-def test_sanity_checks():
-    assert(bm.log(4.1) == np.log(4.1))
-    assert(bm.exp(-10.1) == np.exp(-10.1))
-    assert(bm.sqrt(112.3) == np.sqrt(112.3))
-    assert(bm.sin(4.1) == np.sin(4.1))
-    assert(bm.cos(2.2) == np.cos(2.2))
-    assert(bm.tan(2) == np.tan(2.0))
-    assert(bm.arcsin(0) == np.arcsin(0))
-    assert(bm.arccos(0.2) == np.arccos(0.2))
-    assert(bm.arctan(2) == np.arctan(2))
+# Hyperbolic functions
+def sinh_cosh(x,y):
+    return bm.sinh(x) + bm.cosh(y)
+
+def tanh(x, y):
+    return bm.tanh(x*y)
+
+def test_hyperbolic():
+    a = Variable(val=1, name='x')
+    b = Variable(val=2, name='y')
+    t1 = Diff().auto_diff(function = sinh_cosh, eval_point = [a,b])
+    np.testing.assert_approx_equal(t1.val, np.sinh(1) + np.cosh(2))
+    np.testing.assert_approx_equal(t1.der['x'], np.cosh(1))
+    np.testing.assert_approx_equal(t1.der['y'], np.sinh(2))
+
+    t2 = Diff().auto_diff(function = tanh, eval_point = [a,b])
+    np.testing.assert_approx_equal(t2.val, np.tanh(2))
+    np.testing.assert_approx_equal(t2.der['x'], 2*(1/(np.cosh(2)))**2)
+    np.testing.assert_approx_equal(t2.der['y'], (1/(np.cosh(2)))**2)
+
 
 test_simple_operators()
 test_bm_vector()
-test_sanity_checks()
+test_hyperbolic()
 test_trig_vector()

@@ -227,23 +227,80 @@ def arctan(x):
 	except AttributeError:
 		return np.arctan(x)
 
-def cosh(x):
+def sinh(x):
 	"""The hyperbolic sine or the sinh
 
+	INPUTS
+		x (Variable object or real number)
+
+	RETURNS
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of np.sinh(x).
+
+	EXAMPLES
+	>>> x = Variable(0, name='x')
+	>>> t = sinh(x)
+	>>> print(t.val, t.der['x'])
+	0.0 1.0
 	"""
-	raise NotImplementedError()
+	try:
+		val = np.sinh(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += np.cosh(x.val) * (x.der[key])
+		return Variable(val, ders)
+	except AttributeError:
+		return np.sinh(x)
 
 def cosh(x):
 	"""The hyperbolic cosine or the cosh
 
+	INPUTS
+		x (Variable object or real number)
+
+	RETURNS
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of np.cosh(x).
+
+	EXAMPLES
+	>>> x = Variable(0, name='x')
+	>>> t = cosh(x)
+	>>> print(t.val, t.der['x'])
+	1.0 0.0
 	"""
-	raise NotImplementedError()
+	try:
+		val = np.cosh(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += np.sinh(x.val) * (x.der[key])
+		return Variable(val, ders)
+	except AttributeError:
+		return np.cosh(x)
 
 def tanh(x):
 	"""The hyperbolic tangent or the tanh
 
+	INPUTS
+		x (Variable object or real number)
+
+	RETURNS
+		if x is a Variable, then return a Variable with val and der.
+		if x is a real number, then return the value of np.tanh(x).
+
+	EXAMPLES
+	>>> x = Variable(0, name='x')
+	>>> t = tanh(x)
+	>>> print(t.val, t.der['x'])
+	0.0 1.0
 	"""
-	raise NotImplementedError()
+	try:
+		val = np.tanh(x.val)
+		ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += (1/(np.cosh(x.val))**2) * (x.der[key])
+		return Variable(val, ders)
+	except AttributeError:
+		return np.tanh(x)
 
 if __name__ == '__main__':
 	"""This part runs the doctest"""

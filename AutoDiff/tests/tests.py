@@ -161,6 +161,9 @@ def test_sanity_checks():
     assert(bm.arcsin(0) == np.arcsin(0))
     assert(bm.arccos(0.2) == np.arccos(0.2))
     assert(bm.arctan(2) == np.arctan(2))
+    assert(bm.sinh(2) == np.sinh(2))
+    assert(bm.cosh(2) == np.cosh(2))
+    assert(bm.tanh(2) == np.tanh(2))
 
 test_init()
 test_simple_operators()
