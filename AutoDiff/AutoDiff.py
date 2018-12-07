@@ -23,7 +23,7 @@ class Variable:
 			self.der = der
 
 	def __add__(self, other):
-		"""Return the result of self + other as a dual number.
+		"""Return the result of self + other as a variable.
 
 		INPUTS
 			self (Variable object): the recent Variable, the operand before '+'.
@@ -68,7 +68,7 @@ class Variable:
 		return self + other
 
 	def __mul__(self, other):
-		"""Return the result of self * other as a dual number.
+		"""Return the result of self * other as a variable.
 
 		INPUTS
 			self (Variable object): the recent Variable, the operand before '*'.
@@ -98,7 +98,7 @@ class Variable:
 			return Variable(self.val * other, ders)
 
 	def __rmul__(self, other):
-		"""Return the result of other * self as a dual number using the __mul__ above.
+		"""Return the result of other * self as a variable using the __mul__ above.
 
 		INPUTS
 			self (Variable object): the recent Variable, the operand after '*'.
@@ -116,7 +116,7 @@ class Variable:
 		return self * other
 
 	def __sub__(self, other):
-		"""Return the result of self - other as a dual number using the functions above.
+		"""Return the result of self - other as a variable using the functions above.
 
 		INPUTS
 			self (Variable object): the recent Variable, the operand before '-'.
@@ -135,7 +135,7 @@ class Variable:
 		return self + (-1)*other
 
 	def __rsub__(self, other):
-		"""Return the result of other - self as a dual number using the functions above.
+		"""Return the result of other - self as a variable using the functions above.
 
 		INPUTS
 			self (Variable object): the recent Variable, the operand after '-'.
@@ -184,7 +184,7 @@ class Variable:
 			return Variable(val, ders)
 
 	def __rpow__(self, other):
-		"""Return the result of ohter**(self) as a dual number using the functions above.
+		"""Return the result of other**(self) as a variable using the functions above.
 
 		INPUTS
 			self (Variable object): the recent Variable, the exponent of '**'.
@@ -206,7 +206,7 @@ class Variable:
 		return Variable(val, ders)
 
 	def __truediv__(self, other):
-		"""Return the result of self/other as a dual number using other functions. (Python 3)
+		"""Return the result of self/other as a variable using other functions. (Python 3)
 
 		INPUTS
 			self (Variable object): the recent Variable, the operand before '/'.
@@ -224,7 +224,7 @@ class Variable:
 		return self * (other ** (-1))
 
 	def __rtruediv__(self, other):
-		"""Return the result of other/self as a dual number using other functions. (Python 3)
+		"""Return the result of other/self as a variable using other functions. (Python 3)
 
 		INPUTS
 			self (Variable object): the recent Variable, the operand after '/'.
@@ -285,7 +285,7 @@ class Diff:
 		pass
 #
 	def auto_diff(self, function, eval_point, order = 1):
-		"""Return the value and derivative of the given founction at given point as a dual number.
+		"""Return the value and derivative of the given founction at given point as a variable.
 		For now, it only stands for 1st order derivative.
 
 		INPUTS
@@ -313,6 +313,13 @@ class Diff:
 		5 2.0
  		"""
 		return function(*eval_point)
+
+	def jacobian(self, functions, eval_points):
+		output = np.ones(shape=(len(functions), len(eval_points)))
+		for i, func in enumerate(functions):
+			eval = self.auto_diff(func, eval_points)
+			output[i] = list(eval.der.values())
+		return output
 
 if __name__ == '__main__':
 	"""This part runs the doctest"""
