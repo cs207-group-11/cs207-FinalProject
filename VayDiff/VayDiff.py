@@ -279,12 +279,72 @@ class Variable:
 		"""
 		return Variable(self.val, self.der)
 
+	def __eq__(self,other):
+		"""Return the result of (equal to) comparison.
+
+		INPUTS
+			self (Variable object or real number): the operand before '=='
+			other (Variable object or real number): the operand after '=='
+
+		RETURNS
+			The result of the comparison (boolean) 
+
+		EXAMPLES
+		>>> x = Variable(1,2,name='x')
+		>>> y = Variable(1,2,name='y')
+		>>> x == y
+		True
+		"""
+
+		try:
+			if (self.val == other.val) and (list(self.der.values()) == list(other.der.values())):
+				return True
+			else:
+				return False
+		except AttributeError:
+			if isinstance(self,Variable):
+				if (self.val == other) and (list(self.der.values()) == [0]): return True
+				else: return False
+			else:
+				if (other.val == self) and (list(other.der.values()) == [0]): return True
+				else: return False
+	
+	def __ne__(self,other):
+		"""Return the result of (not equal to) comparison.
+
+		INPUTS
+			self (Variable object or real number): the operand before '!='
+			other (Variable object or real number): the operand after '!='
+
+		RETURNS
+			The result of the comparison (boolean) 
+
+		EXAMPLES
+		>>> x = Variable(1,2,name='x')
+		>>> y = Variable(1,2,name='y')
+		>>> x != y
+		False
+		"""
+		try:
+			if (self.val != other.val) or (list(self.der.values()) != list(other.der.values())):
+				return True
+			else:
+				return False
+		except AttributeError:
+			if isinstance(self,Variable):
+				if (self.val != other) or (list(self.der.values()) != [0]): return True
+				else: return False
+			else:
+				if (other.val != self) or (list(other.der.values()) != [0]): return True
+				else: return False
+
+
 class Diff:
 	"""This class defines the object that the user will interact with and acts as a wrapper of the underlying Variable class"""
 	def __init__(self):
 		"""The constructor for Diff Class."""
 		pass
-#
+
 	def auto_diff(self, function, eval_point):
 		"""Return the value and derivative of the given founction at given point as a variable.
 		For now, it only stands for 1st order derivative.
