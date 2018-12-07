@@ -21,3 +21,14 @@ Download our project on [PyPI](https://pypi.org/project/VayDiff/) using the foll
 ```
 pip install VayDiff
 ```
+
+## A small example
+
+```
+from VayDiff.VayDiff import Variable
+
+x = Variable(3, name='x')
+t = x + 2
+print(t.val, t.der['x'])
+5 1.0
+```
