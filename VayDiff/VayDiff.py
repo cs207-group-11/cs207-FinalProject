@@ -287,7 +287,7 @@ class Variable:
 			other (Variable object or real number): the operand after '=='
 
 		RETURNS
-			The result of the comparison (boolean) 
+			The result of the comparison (boolean)
 
 		EXAMPLES
 		>>> x = Variable(1,2,name='x')
@@ -297,18 +297,10 @@ class Variable:
 		"""
 
 		try:
-			if (self.val == other.val) and (list(self.der.values()) == list(other.der.values())):
-				return True
-			else:
-				return False
+			return (self.val == other.val) and (list(self.der.values()) == list(other.der.values()))
 		except AttributeError:
-			if isinstance(self,Variable):
-				if (self.val == other) and (list(self.der.values()) == [0]): return True
-				else: return False
-			else:
-				if (other.val == self) and (list(other.der.values()) == [0]): return True
-				else: return False
-	
+			return False
+
 	def __ne__(self,other):
 		"""Return the result of (not equal to) comparison.
 
@@ -317,7 +309,7 @@ class Variable:
 			other (Variable object or real number): the operand after '!='
 
 		RETURNS
-			The result of the comparison (boolean) 
+			The result of the comparison (boolean)
 
 		EXAMPLES
 		>>> x = Variable(1,2,name='x')
@@ -326,18 +318,9 @@ class Variable:
 		False
 		"""
 		try:
-			if (self.val != other.val) or (list(self.der.values()) != list(other.der.values())):
-				return True
-			else:
-				return False
+			return (self.val != other.val) or (list(self.der.values()) != list(other.der.values()))
 		except AttributeError:
-			if isinstance(self,Variable):
-				if (self.val != other) or (list(self.der.values()) != [0]): return True
-				else: return False
-			else:
-				if (other.val != self) or (list(other.der.values()) != [0]): return True
-				else: return False
-
+			return True
 
 class Diff:
 	"""This class defines the object that the user will interact with and acts as a wrapper of the underlying Variable class"""
