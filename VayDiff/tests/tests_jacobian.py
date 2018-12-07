@@ -5,10 +5,10 @@ from VayDiff.VayDiff import Diff
 from VayDiff.VayDiff import Variable
 
 def f1(x,y,z=2):
-    return x**2*y + z
+    return z+-z+x**2*y + z
 
 def f2(x,y,z=2):
-    return 5*x + bm.sin(y) + z
+    return z+-z+5*x + bm.sin(y) + z
 
 def f3(x,y,z=2):
     return x*y+y+z

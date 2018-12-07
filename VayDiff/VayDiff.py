@@ -16,6 +16,7 @@ class Variable:
 			name (string): The name of the variable. The default is None.
 		"""
 		self.val = val
+		self.name = name
 		if name:
 			self.der = defaultdict(float)
 			self.der[name] = der
@@ -327,7 +328,7 @@ class Diff:
 
 		EXAMPLES
 		>>> f1 = lambda x,y: x**2*y
-		>>> f2 = lambda x,y: x+5*y
+		>>> f2 = lambda x,y: 5*y+x
 		>>> x = Variable(val=3, name='x')
 	    >>> y = Variable(val=5, name='y')
 	    >>> t1 = Diff().jacobian([f1,f2], [x,y])
@@ -338,10 +339,13 @@ class Diff:
 		>>> t1[1]
 		array([1., 5.])
  		"""
+		key_order = [k.name for k in eval_points]
 		output = np.ones(shape=(len(functions), len(eval_points)))
 		for i, func in enumerate(functions):
 			eval = self.auto_diff(func, eval_points)
-			output[i] = list(eval.der.values())
+			ders = eval.der
+			for j, k in enumerate(key_order):
+				output[i][j] = ders[k]
 		return output
 
 if __name__ == '__main__':
