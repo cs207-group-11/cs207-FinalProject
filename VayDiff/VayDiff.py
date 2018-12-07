@@ -284,15 +284,14 @@ class Diff:
 		"""The constructor for Diff Class."""
 		pass
 #
-	def auto_diff(self, function, eval_point, order = 1):
+	def auto_diff(self, function, eval_point):
 		"""Return the value and derivative of the given founction at given point as a variable.
 		For now, it only stands for 1st order derivative.
 
 		INPUTS
 			self (Diff object)
 			function (function): the function defined by user
-			eval_point (a list of Variable objects): the point(s) which the derivative will be computed at.
-			order (real number): the order of derivative that the user want to compute, default = 1.
+			eval_points (a list of Variable objects): the point(s) which the derivative will be computed at.
 
 		RETURNS
 			The value and derivative (Variable)
@@ -315,6 +314,30 @@ class Diff:
 		return function(*eval_point)
 
 	def jacobian(self, functions, eval_points):
+		"""Return the Jacobian of a list of functions.
+
+		INPUTS
+			self (Diff object)
+			functions: a list of functions defined by user
+			eval_points (a list of Variable objects): the variables which the derivative will be computed at.
+
+		RETURNS
+			A Jacobian Matrix, a n by p Numpy array where n is the number of functions input by the user and p is the
+			number of variables to differentiate over.
+
+		EXAMPLES
+		>>> f1 = lambda x,y: x**2*y
+		>>> f2 = lambda x,y: x+5*y
+		>>> x = Variable(val=3, name='x')
+	    >>> y = Variable(val=5, name='y')
+	    >>> t1 = Diff().jacobian([f1,f2], [x,y])
+		>>> t1.shape
+		(2, 2)
+		>>> t1[0]
+		array([30.,  9.])
+		>>> t1[1]
+		array([1., 5.])
+ 		"""
 		output = np.ones(shape=(len(functions), len(eval_points)))
 		for i, func in enumerate(functions):
 			eval = self.auto_diff(func, eval_points)
