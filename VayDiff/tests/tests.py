@@ -36,6 +36,8 @@ def unary(x):
 # Testing addition, subtraction, multiplication and division
 def test_simple_operators():
     a = Variable(val=3, name='a')
+    b = Variable(val=3, name='b')
+    c = Variable(val=5, name='c')
     # Addition and subtraction
     t11 = Diff().auto_diff(function = add_function, eval_point = [a])
     t12 = Diff().auto_diff(function = sub_function, eval_point = [a])
@@ -64,6 +66,14 @@ def test_simple_operators():
     t6 = Diff().auto_diff(function = unary, eval_point = [a])
     assert(t6.val == 6)
     assert(t6.der['a'] == 2)
+
+    # Eq and ne
+    assert(a == b)
+    assert(a != c)
+    assert(a != 3)
+    assert(a == a)
+    assert((a == 3) == False)
+    assert((a != b) == False)
 
 # More advanced operators
 def power_scalar(x):
