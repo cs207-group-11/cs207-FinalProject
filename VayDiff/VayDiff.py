@@ -5,7 +5,7 @@ class Variable:
 	"""
 	This class defines a variable as a Dual Number under the hood.
 	A series of arithmetic functions and unary operations implemented on this variable are defined here.
-	This is the elementary way by which a user can input a variable to be differentiated over in our AutoDiff class.
+	This is the elementary way by which a user can input a variable to be differentiated over in our VayDiff class.
 	"""
 	def __init__(self, val=0.0, der=1.0, name=None):
 		"""The constructor for Variable Class.

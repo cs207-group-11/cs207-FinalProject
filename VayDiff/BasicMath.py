@@ -1,5 +1,5 @@
 import numpy as np
-from AutoDiff.AutoDiff import Variable
+from VayDiff.VayDiff import Variable
 from collections import defaultdict
 
 def log(x):

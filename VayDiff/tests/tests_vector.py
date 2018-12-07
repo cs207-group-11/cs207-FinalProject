@@ -1,8 +1,8 @@
 import pytest
 import numpy as np
-from AutoDiff import BasicMath as bm
-from AutoDiff.AutoDiff import Diff
-from AutoDiff.AutoDiff import Variable
+from VayDiff import BasicMath as bm
+from VayDiff.VayDiff import Diff
+from VayDiff.VayDiff import Variable
 
 epsilon = 1e-7
 

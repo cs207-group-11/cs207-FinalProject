@@ -2,7 +2,9 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/cs207-group-11/cs207-FinalProject/badge.svg?branch=master)](https://coveralls.io/github/cs207-group-11/cs207-FinalProject?branch=master)
 
-# CS 207 Final Project
+# VayDiff
+
+An Automatic Differentiation Library for Python 3. This project was done for CS207 at Harvard University, taught by Professor David Sondak.
 
 ## Group Number: 11
 
@@ -11,3 +13,11 @@
 1. Abhimanyu Vasishth
 2. Zheyu Wu
 3. Yiming Xu
+
+## Downloading `VayDiff`
+
+Download our project on [PyPI](https://pypi.org/project/VayDiff/) using the following command:
+
+```
+pip install VayDiff
+```
