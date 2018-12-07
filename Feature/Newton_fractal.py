@@ -7,7 +7,8 @@ module_path = os.path.join(os.path.abspath('../'))
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-from AutoDiff import AutoDiff as AD
+from VayDiff import VayDiff as AD
+from VayDiff import BasicMath as bm
 
 
 def color(ind, level):
