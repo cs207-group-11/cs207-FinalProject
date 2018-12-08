@@ -7,7 +7,7 @@ class Variable:
 	A series of arithmetic functions and unary operations implemented on this variable are defined here.
 	This is the elementary way by which a user can input a variable to be differentiated over in our VayDiff class.
 	"""
-	def __init__(self, val=0.0, der=1.0, name=None):
+	def __init__(self, val=0.0, der=1.0, sec_der=0.0, name=None):
 		"""The constructor for Variable Class.
 
 		Args:
@@ -19,9 +19,12 @@ class Variable:
 		self.name = name
 		if name:
 			self.der = defaultdict(float)
+			self.sec_der = defaultdict(float)
 			self.der[name] = der
+			self.sec_der[name] = sec_der
 		else:
 			self.der = der
+			self.sec_der = sec_der
 
 	def __add__(self, other):
 		"""Return the result of self + other as a variable.
@@ -42,13 +45,16 @@ class Variable:
 		try:
 			val = self.val + other.val
 			ders = defaultdict(float)
+			sec_ders = defaultdict(float)
 			for key in self.der:
 				ders[key] += self.der[key]
+				sec_ders[key] += self.sec_der[key]
 			for key in other.der:
 				ders[key] += other.der[key]
-			return Variable(val, ders)
+				sec_ders[key] += other.sec_der[key]
+			return Variable(val, ders, sec_ders)
 		except AttributeError:
-			return Variable(self.val + other, self.der)
+			return Variable(self.val + other, self.der, self.sec_der)
 
 	def __radd__(self, other):
 		"""Return the result of other + self as a variable using the __add__ above.
@@ -87,16 +93,21 @@ class Variable:
 		try:
 			val = self.val * other.val
 			ders = defaultdict(float)
+			sec_ders = defaultdict(float)
 			for key in self.der:
 				ders[key] += self.der[key]*other.val
+				sec_ders[key] += other.val*self.sec_der[key]+self.der[key]*other.der[key]
 			for key in other.der:
 				ders[key] += other.der[key]*self.val
-			return Variable(val, ders)
+				sec_ders[key] += self.val*other.sec_der[key]+other.der[key]*self.der[key]
+			return Variable(val, ders, sec_ders)
 		except AttributeError:
 			ders = defaultdict(float)
+			sec_ders = defaultdict(float)
 			for key in self.der:
 				ders[key] += self.der[key]*other
-			return Variable(self.val * other, ders)
+				sec_ders[key] += self.sec_der[key]*other
+			return Variable(self.val * other, ders, sec_ders)
 
 	def __rmul__(self, other):
 		"""Return the result of other * self as a variable using the __mul__ above.
@@ -172,17 +183,22 @@ class Variable:
 		try:
 			val = self.val ** other.val
 			ders = defaultdict(float)
+			sec_ders = defaultdict(float)
 			for key in self.der:
 				ders[key] += other.val * self.val ** (other.val - 1) * self.der[key]
+				sec_ders[key] += other.val * (other.val -1) * self.val ** (other.val - 2) * self.der[key]
 			for key in other.der:
-				ders[key] += (self.val ** other.val) * np.log(self.val) * other.der[key]
-			return Variable(val, ders)
+				ders[key] += (val) * np.log(self.val) * other.der[key]
+				sec_ders[key] += (val) * (np.log(self.val)**2) * other.der[key]
+			return Variable(val, ders, sec_ders)
 		except AttributeError:
 			val = self.val ** other
 			ders = defaultdict(float)
+			sec_ders = defaultdict(float)
 			for key in self.der:
 				ders[key] += other * (self.val ** (other-1)) * self.der[key]
-			return Variable(val, ders)
+				sec_ders[key] += other * (other -1) * (self.val ** (other-2)) * self.der[key]
+			return Variable(val, ders, sec_ders)
 
 	def __rpow__(self, other):
 		"""Return the result of other**(self) as a variable using the functions above.
@@ -202,9 +218,11 @@ class Variable:
 		"""
 		val = other ** self.val
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in self.der:
-			ders[key] = other ** self.val * np.log(other) * self.der[key]
-		return Variable(val, ders)
+			ders[key] = val * np.log(other) * self.der[key]
+			sec_ders[key] = (val) * (np.log(other)**2) * self.der[key]
+		return Variable(val, ders, sec_ders)
 
 	def __truediv__(self, other):
 		"""Return the result of self/other as a variable using other functions. (Python 3)
@@ -258,9 +276,11 @@ class Variable:
 		1 -1.0
 		"""
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in self.der:
 			ders[key] = -self.der[key]
-		return Variable(-self.val, ders)
+			sec_ders[key] = -self.sec_der[key]
+		return Variable(-self.val, ders, sec_ders)
 
 	def __pos__(self):
 		"""Return the result of positive unary operation (+self).
@@ -277,7 +297,7 @@ class Variable:
 		>>> print(t.val, t.der['x'])
 		3 1.0
 		"""
-		return Variable(self.val, self.der)
+		return Variable(self.val, self.der, self.sec_der)
 
 	def __eq__(self,other):
 		"""Return the result of (equal to) comparison.

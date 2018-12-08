@@ -164,7 +164,6 @@ def test_hyperbolic():
     np.testing.assert_approx_equal(t2.der['x'], 2*(1/(np.cosh(2)))**2)
     np.testing.assert_approx_equal(t2.der['y'], (1/(np.cosh(2)))**2)
 
-
 test_simple_operators()
 test_bm_vector()
 test_hyperbolic()

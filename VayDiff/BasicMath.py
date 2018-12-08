@@ -21,9 +21,11 @@ def log(x):
 	try:
 		val = np.log(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += x.der[key]/x.val
-		return Variable(val, ders)
+			sec_ders[key] += (x.val*x.sec_der[key] - (x.der[key])**2)/x.val**2
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.log(x)
 
@@ -46,9 +48,11 @@ def exp(x):
 	try:
 		val = np.exp(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
-			ders[key] += x.der[key] * np.exp(x.val)
-		return Variable(val, ders)
+			ders[key] += x.der[key] * val
+			sec_ders[key] = val * (x.sec_der[key] + (x.der[key])**2)
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.exp(x)
 
@@ -71,9 +75,11 @@ def sqrt(x):
 	try:
 		val = np.sqrt(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += 0.5 * (x.val ** (-0.5)) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += (2*x.val*x.sec_der[key] - (x.der[key])**2)/(4*x.val**1.5)
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.sqrt(x)
 
@@ -96,9 +102,11 @@ def sin(x):
 	try:
 		val = np.sin(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += np.cos(x.val) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += x.sec_der[key]*np.cos(x.val)-(x.der[key]**2)*(np.sin(x.val))
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.sin(x)
 
@@ -121,9 +129,11 @@ def cos(x):
 	try:
 		val = np.cos(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += -np.sin(x.val) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += -x.sec_der[key]*np.sin(x.val)+(x.der[key]**2)*(-np.cos(x.val))
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.cos(x)
 
@@ -146,9 +156,11 @@ def tan(x):
 	try:
 		val = np.tan(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += 1/(np.cos(x.val)**2) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += 1/(np.cos(x.val)**2) * (x.sec_der[key] + 2*(x.der[key]**2)*val)
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.tan(x)
 
@@ -171,9 +183,11 @@ def arcsin(x):
 	try:
 		val = np.arcsin(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += 1/((1 - x.val**2)**0.5) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += (x.val*x.der[key]**2-x.sec_der[key]*(x.val**2-1))/((1-x.val**2)**1.5)
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.arcsin(x)
 
@@ -196,9 +210,12 @@ def arccos(x):
 	try:
 		val = np.arccos(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += -1/((1 - x.val**2)**0.5) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += -(x.val**2*(-x.sec_der[key]) + x.sec_der[key] + x.val*x.der[key]**2)/ \
+							 ((1-x.val**2)**1.5)
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.arccos(x)
 
@@ -221,9 +238,11 @@ def arctan(x):
 	try:
 		val = np.arctan(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += 1/(1 + x.val**2) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += ((x.val**2+1)*x.sec_der[key]-2*x.val*x.der[key]**2)/(x.val**2+1)**2
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.arctan(x)
 
@@ -246,9 +265,11 @@ def sinh(x):
 	try:
 		val = np.sinh(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += np.cosh(x.val) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += x.sec_der[key]*np.cosh(x.val) + x.der[key]**2*np.sinh(x.val)
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.sinh(x)
 
@@ -271,9 +292,11 @@ def cosh(x):
 	try:
 		val = np.cosh(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += np.sinh(x.val) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += x.sec_der[key]*np.sinh(x.val) + x.der[key]**2*np.cosh(x.val)
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.cosh(x)
 
@@ -296,9 +319,11 @@ def tanh(x):
 	try:
 		val = np.tanh(x.val)
 		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
 		for key in x.der:
 			ders[key] += (1/(np.cosh(x.val))**2) * (x.der[key])
-		return Variable(val, ders)
+			sec_ders[key] += (1/(np.cosh(x.val))**2) * (x.sec_der[key] -2*(x.der[key]**2)*np.tanh(x.val))
+		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.tanh(x)
 

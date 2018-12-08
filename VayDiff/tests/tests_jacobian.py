@@ -17,7 +17,6 @@ def test_jacobian_22():
     x = Variable(val=3, name='x')
     y = Variable(val=5, name='y')
     t1 = Diff().jacobian([f1,f2], [x,y])
-    print(t1)
     assert(t1.shape == (2,2))
     assert(t1[0][0] == 30)
     assert(t1[0][1] == 9)
