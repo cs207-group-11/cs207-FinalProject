@@ -102,10 +102,13 @@ def draw(f, size, name, x_min=-2.0, x_max=2., y_min=-2.0, y_max=2.0, eps=1e-6, m
     img.save(name, "PNG")
 
 def show_route(f, size, name, x_min=-2.0, x_max=2., y_min=-2.0, y_max=2.0, eps=1e-6, max_iter=40):
+    img = mpimg.imread('old.png')
 
     plt.ion()
-    plt.xlim(-3,3)
-    plt.ylim(-3,3)
+    plt.imshow(img, extent=[-img.shape[1]/2., img.shape[1]/2., -img.shape[0]/2., img.shape[0]/2. ])
+    print (img)
+    plt.xlim(-500,500)
+    plt.ylim(-500,500)
     ax = plt.axes()
     for x in tqdm(range(size)):
         for y in tqdm(range(size)):
@@ -122,18 +125,15 @@ def show_route(f, size, name, x_min=-2.0, x_max=2., y_min=-2.0, y_max=2.0, eps=1
             # Of course we will not draw all arrows for all points
                 if (x % 100 == 0 and y % 100 == 0):
                     if (abs(c2.real-c.real) > 0.1 or abs(c2.imag - c.imag) > 0.1):
-                        ax.arrow(c.real, c.imag, c2.real-c.real, c2.imag - c.imag, head_width=0.05, head_length=0.05, fc='k', ec='k')
+                        ax.arrow(c.real * 250, c.imag * 250, (c2.real-c.real) * 250, (c2.imag - c.imag) * 250, color = (177/255, 196/255, 226/255, 0.3), head_width= 10, head_length=10)
                         plt.pause(0.01)
-
-
                 if abs(c2 - c) < eps:
                     break
                 c = c2
-
 
 def f(x):
     return x**6-1
 
 if __name__ == '__main__':
-    #draw(f, 1000, "old.png")
+    draw(f, 1000, "old.png")
     show_route(f, 1000, "old.png")
