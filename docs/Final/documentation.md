@@ -12,6 +12,7 @@ In addition to the automatic differentiation package, we also come up with a new
 
 ## Background
 
+### Automatic Differentiation**
 To implement automatic differentiation, we will use the idea of forward mode differentiation and dual numbers. Forward mode differentiation builds on the chain rule, which allows computing derivatives of nested functions. We use the chain rule to evaluate derivative of such functions from the inside to the outside and introduce the dual number to help us compute the function values and the derivatives.
 
 Similar to a complex number, a dual number has both a real part and a dual part. It can be defined in the form x+εx’  with the property that ε<sup>2</sup> =0. It follows that substituting the original variable with its associated dual number to a function, we ultimately get another dual number as follows:
@@ -32,14 +33,19 @@ To illustrate this process graphically, we have created following schematic with
 
 We finally get 21+6ε where 21 is the value of the whole function and 6 is the derivative with respect to x.
 
+### Newton Fractals
 
 ## How to Install and Use *AutoDiff*
 
-### Installing via PyPI
+### Installing via PyPI (friendly for consumers)
 
-This will be implemented by the next milestone.
+Download our project on [PyPI](https://pypi.org/project/VayDiff/) using the following command:
 
-### Manual Installation
+```
+pip install VayDiff
+```
+
+### Manual Installation (for developers)
 
 Clone or download our [GitHub repository](https://github.com/HIPS/autograd) and navigate into this directory in your terminal.
 
@@ -71,7 +77,7 @@ deactivate
 
 ### Demonstration
 
-*Note: a more detailed and interactive demonstration can be found in the accompanying Jupyter Notebook: `Demo.ipynb`*
+*Note: a more detailed and interactive demonstration can be found in the accompanying Jupyter Notebook: `Demo_VayDiff.ipynb` and `Demo_Feature.ipynb`*
 
 Create a python file (we call it `my_project.py`) with the following lines of code:
 
