@@ -107,11 +107,11 @@ def draw(f, size, name, x_min=-2.0, x_max=2., y_min=-2.0, y_max=2.0, eps=1e-6, m
     img.save(name, "PNG")
 
 def show_route(f, size, name, x_min=-2.0, x_max=2., y_min=-2.0, y_max=2.0, eps=1e-6, max_iter=40):
-    img = mpimg.imread('old.png')
+    img = mpimg.imread(name)
 
     plt.ion()
     plt.imshow(img, extent=[-img.shape[1]/2., img.shape[1]/2., -img.shape[0]/2., img.shape[0]/2. ])
-    print (img)
+
     plt.xlim(-size/2,size/2)
     plt.ylim(-size/2,size/2)
     ax = plt.axes()
@@ -141,65 +141,61 @@ def launcn_UI():
     root = Tk()
     root.title("Newton's Fractal Generator")
 
-    derivative_order = StringVar(root)
-    derivative_order.set("1") # default value
-    drop_down_menu = OptionMenu(root, derivative_order, "1", "2")
 
     #Labels
     label_1 = Label(root, text = "Input Equation")
-    label_2 = Label(root, text = "Evaluation Point")
-    label_3 = Label(root, text = "Image Size")
-    label_4 = Label(root, text = "Derivative Order")
+    label_2 = Label(root, text = "Image Size")
+    label_3 = Label(root, text = "Image Name")
 
     #Entries
     entry_1 = Entry(root)
     entry_2 = Entry(root)
+    entry_2.insert(END, '500')
     entry_3 = Entry(root)
-    entry_3.insert(END, '500')
-
+    entry_3.insert(END, 'output.png')
 
     #Button
-    button_1 = Button(root, text = "Run", command = lambda: run_command(entry_1, entry_2, entry_3, derivative_order))
-    button_2 = Button(root, text = "Show Gradient", command = lambda: gradient_command(entry_1, entry_2, entry_3, derivative_order))
+    button_1 = Button(root, text = "Run", command = lambda: run_command(entry_1, entry_2, entry_3))
+    button_2 = Button(root, text = "Show Image", command = lambda: image_command(entry_3))
+    button_3 = Button(root, text = "Show Gradient", command = lambda: gradient_command(entry_1, entry_2, entry_3))
 
     #Placements
     label_1.grid(row = 1)
     label_2.grid(row = 2)
     label_3.grid(row = 3)
-    label_4.grid(row = 4)
 
 
     entry_1.grid(row = 1, column = 1)
     entry_2.grid(row = 2, column = 1)
     entry_3.grid(row = 3, column = 1)
-    drop_down_menu.grid(row = 4, column = 1)
-    button_1.grid(row = 5, column = 0)
-    button_2.grid(row = 5, column = 1)
-
+    button_1.grid(row = 4, column = 0)
+    button_2.grid(row = 4, column = 1)
+    button_3.grid(row = 4, column = 2)
 
     root.mainloop()
 
-def run_command(entry_1, entry_2, entry_3, derivative_order):
+def run_command(entry_1, entry_2, entry_3):
     equation = entry_1.get()
-    eval_point = float(entry_2.get())
-    img_size = int(entry_3.get())
-    deri_order = int(derivative_order.get())
+    img_size = int(entry_2.get())
+    img_name = entry_3.get()
 
     g = lambda x: eval(equation)
-    draw(g, img_size, "old.png")
+    draw(g, img_size, img_name)
+
+def image_command(entry_3):
+    img_name = entry_3.get()
+    img = mpimg.imread(img_name)
+    plt.ion()
+    plt.imshow(img, extent=[-img.shape[1]/2., img.shape[1]/2., -img.shape[0]/2., img.shape[0]/2. ])
 
 
-def run_command(entry_1, entry_2, entry_3, derivative_order):
+def gradient_command(entry_1, entry_2, entry_3):
     equation = entry_1.get()
-    eval_point = float(entry_2.get())
-    img_size = int(entry_3.get())
-    deri_order = int(derivative_order.get())
+    img_size = int(entry_2.get())
+    img_name = entry_3.get()
 
     g = lambda x: eval(equation)
-    show_route(g, img_size, "old.png")
-
-def f(x):
-    return x**6-1
+    show_route(g, img_size, img_name)
 
 if __name__ == '__main__':
     launcn_UI()
