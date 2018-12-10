@@ -101,7 +101,7 @@ def draw(f, size, name, x_min=-2.0, x_max=2., y_min=-2.0, y_max=2.0, eps=1e-6, m
                 if not cached_root:
                     roots.append(root)
             if root:
-                img.putpixel((x, y), color(roots.index(root), n_converge)) # 上色
+                img.putpixel((x, y), color(roots.index(root), n_converge)) # coloring
 
     print(roots)
     img.save(name, "PNG")
