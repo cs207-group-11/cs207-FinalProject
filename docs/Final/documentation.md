@@ -79,38 +79,6 @@ deactivate
 
 *Note: a more detailed and interactive demonstration can be found in the accompanying Jupyter Notebook: `Demo_VayDiff.ipynb` and `Demo_Feature.ipynb`*
 
-Create a python file (we call it `my_project.py`) with the following lines of code:
-
-```python
-from AutoDiff.AutoDiff import ad
-
-grad = ad().auto_diff
-
-# Taking the derivative of 3x
-func = lambda x: 3*x
-
-# Taking the derivative at x=3
-x = 3
-
-t = grad(func,3)
-print(t.val) # 9
-print(t.der) # 3
-```
-
-Then, we can run the file within the terminal as follows:
-
-```
-python3 my_project.py
-```
-
-Voila, we obtain 9 and 3, just as we expected.  
-
-In order to run our tests, the following command can be used:
-
-```
-pytest AutoDiff/
-```
-
 ## Software Organization
 
 The directory structure looks like the following:
