@@ -6,7 +6,9 @@ Differentiation is an increasingly important technique in scientific computing [
 
 Despite its emerging importance, traditional approaches to compute the derivatives involve slow and complicated methods such as symbolic differentiation and numerical differentiation.  Both these approaches perform poorly on high-order and multivariate derivatives, which are essential for gradient-based optimization problems.
 
-In this project, we introduce a software-based method to enable automatic differentiation to efficiently evaluate the derivative of a function. In addition to computing derivatives automatically, advanced methods such as back propagation will be included for complicated applications such as training a neural network. All of these methods will be incorporated in a well-documented Python package, `AutoDiff`, that can be easily installed and allows users to perform a variety of tasks such as Newton’s method and gradient descent.
+In this project, we introduce a software-based method to enable automatic differentiation to efficiently evaluate the derivative of a function. In addition to computing derivatives automatically, advanced methods such as back propagation will be included for complicated applications such as training a neural network. All of these methods will be incorporated in a well-documented Python package, `VayDiff`, that can be easily installed and allows users to perform a variety of tasks such as Newton’s method and gradient descent.
+
+In addition to the automatic differentiation package, we also come up with a new feature `Newton_fractal`. 
 
 ## Background
 
@@ -183,12 +185,9 @@ Finally, we plan to allow users to download our Python package via PyPI.
 ### Additional features
 
 For the next milestone, we plan to implement following new features to fully utilize the automatic differentiation functionality:
-* Root-finder: Using Newton's method, we can use `AutoDiff` to iteratively to find the solution of any differentiable equation. This is extremely useful since many equations does not have close-form solution.
-* Gradient Descent: Used extensively in the machine learning, gradient descent becomes the primary tool to find the optimal coefficients given a cost function. We will set a few common gradient descent Python implementations as our benchmark, and compare our model performance with them.
+(1) second order derivative
+(2) Newton_fractual
 
-### Anticipated challenges
-
-We anticipate that since our module will eventually support vector-based operations, some of the data structures and algorithms mentioned above need to be changed. This may lead to careful tuning of other functions such that both scalar and vector input will work.
 
 ## References
 [1] M. T. Heath, “Scientific Computing: An Introductory Survey Chapter 8 - Numerical Integration and Differentiation,”[Online]. Accessed October 18th, 2018. Available: http://heath.cs.illinois.edu/scicomp/notes/chap08.pdf
