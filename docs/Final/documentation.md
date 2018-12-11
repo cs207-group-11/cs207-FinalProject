@@ -10,7 +10,7 @@ In this project, we introduce a software-based method to enable automatic differ
 
 In addition to the automatic differentiation package, we also come up with a new feature `Newton_fractal`. This feature utlizes the automatic differention functionality provided by the VayDiff library, and extends it to the complex domain. By continuously applying Newton's method in solving complex equations with different starting points and coloring them up based on the root they converge to, we can get a Newton's Fractal shown below. 
 
-![newton_fractal](./Figures/newton_fractal.png)
+![newton_fractal](/Figures/fractal.gif)
 
 <center>Figure 1. Newton's Fractal Example</center>
 
