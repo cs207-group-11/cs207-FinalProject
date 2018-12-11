@@ -180,9 +180,10 @@ Finally, we plan to allow users to download our Python package via PyPI.
 
 ### Additional features
 
-For the next milestone, we plan to implement following new features to fully utilize the automatic differentiation functionality:
-(1) second order derivative
-(2) Newton_fractual
+While we have finished this project and achieved satisfactory results, there are still a few things that might be interesting for us (or other people) to look into. They include:
+* Second order derivative
+* Newton's Fractual
+ * Currently, our feature only supports complex function of one complex variable. As a potential next step, one could look into mulivariate case where multiple Newton's fractal will be generated, one for each variable.
 
 
 ## References
