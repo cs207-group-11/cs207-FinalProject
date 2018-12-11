@@ -1,4 +1,4 @@
-# Milestone 2: Group 11
+# VayDiff Documentation
 
 ## Introduction
 
