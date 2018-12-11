@@ -30,3 +30,12 @@ t = x + 2
 print(t.val, t.der['x'])
 5 1.0
 ```
+
+## Using `Newton_fractal`
+
+We provide a Graphical User Interface for our feature.
+
+
+![newton_fractal](.docs/Final/Figures/fractal.gif)
+
+
