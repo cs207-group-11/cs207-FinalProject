@@ -31,7 +31,7 @@ To illustrate this process graphically, we have created following schematic with
 We finally get 21+6ε where 21 is the value of the whole function and 6 is the derivative with respect to x.
 
 
-## How to Install and Use *AutoDiff*
+## How to Install and Use *VayDiff*
 
 ### Installing via PyPI
 
