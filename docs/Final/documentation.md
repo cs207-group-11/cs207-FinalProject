@@ -8,7 +8,8 @@ Despite its emerging importance, traditional approaches to compute the derivativ
 
 In this project, we introduce a software-based method to enable automatic differentiation to efficiently evaluate the derivative of a function. In addition to computing derivatives automatically, advanced methods such as back propagation will be included for complicated applications such as training a neural network. All of these methods will be incorporated in a well-documented Python package, `VayDiff`, that can be easily installed and allows users to perform a variety of tasks such as Newton’s method and gradient descent.
 
-In addition to the automatic differentiation package, we also come up with a new feature `Newton_fractal`. 
+In addition to the automatic differentiation package, we also come up with a new feature `Newton_fractal`. This feature utlizes the automatic differention functionality provided by the VayDiff library, and extends it to the complex domain. By continuously applying Newton's method in solving complex equations with different starting points and coloring them up based on the root they converge to, we can get a Newton's Fractal shown below. 
+
 
 ## Background
 
