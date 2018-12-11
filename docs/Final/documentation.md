@@ -35,7 +35,7 @@ We finally get 21+6ε where 21 is the value of the whole function and 6 is the d
 
 ### Newton Fractals
 
-## How to Install and Use *AutoDiff*
+## How to Install and Use *VayDiff*
 
 ### Installing via PyPI (friendly for consumers)
 
