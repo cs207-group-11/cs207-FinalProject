@@ -84,7 +84,7 @@ deactivate
 The directory structure looks like the following:
 
 ```
-AutoDiff/
+VayDiff/
     __init__.py
     AutoDiff.py
     BasicMath.py
@@ -92,12 +92,18 @@ AutoDiff/
         __init__.py
         tests.py
 docs/
+    schematic_fig.png
     milestone1/
     	milestone1.md
     milestone2/
-    	milestone2.ipynb
+    	demo.ipynb
 	milestone2.md
-   	schematic_fig.png
+    Final/
+        demo_VayDiff.ipynb
+	demo_Feature.ipynb
+	documentation.md
+
+   	
 README.md
 setup.py
 LICENSE
