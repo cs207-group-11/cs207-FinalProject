@@ -36,6 +36,6 @@ print(t.val, t.der['x'])
 We provide a Graphical User Interface for our feature.
 
 
-![newton_fractal](.docs/Final/Figures/fractal.gif)
+![newton_fractal](./docs/Final/Figures/fractal.gif)
 
 
