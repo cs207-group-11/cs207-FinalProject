@@ -38,7 +38,7 @@ To illustrate this process graphically, we have created following schematic with
 
 We finally get 21+6ε where 21 is the value of the whole function and 6 is the derivative with respect to x.
 
-### Newton Fractals
+### Newton's Fractals
 
 Fractal is a recursive, and infinitely self-similar mathematical set whose structure continuously repeats itself. Snowflake, as shown below, is a good example of fractals. 
 
