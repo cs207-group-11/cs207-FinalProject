@@ -86,11 +86,14 @@ The directory structure looks like the following:
 ```
 VayDiff/
     __init__.py
-    AutoDiff.py
+    VayDiff.py
     BasicMath.py
     tests/
         __init__.py
         tests.py
+	tests_jacobian.py
+	tests_sec_der.py
+	tests_vector.py
 docs/
     schematic_fig.png
     milestone1/
@@ -102,7 +105,6 @@ docs/
         demo_VayDiff.ipynb
 	demo_Feature.ipynb
 	documentation.md
-
    	
 README.md
 setup.py
@@ -114,12 +116,9 @@ setup.py
 .travis.yml
 ```	 
 
-In this directory, we have two Python modules, named `AutoDiff.py` and `BasicMath.py`. `AutoDiff.py` is the core of the project and contains the main algorithms and data structures. In addition, we include elementary functions (outlined in the implementation section) in the  `BasicMath.py` file. For scalar input, they work exactly like Numpy. However, if the input is DualNumber object, they will return another DualNumber object containing the results.
+In this directory, we have two Python modules, named `VayDiff.py` and `BasicMath.py`. `VatDiff.py` is the core of the project and contains the main algorithms and data structures. In addition, we include elementary functions (outlined in the implementation section) in the  `BasicMath.py` file. For scalar input, they work exactly like Numpy. However, if the input is Variable object, they will return another Variable object containing the results.
 
-A series of tests are written to provide full coverage of all the functions and classes defined in AutoDiff, and are stored in the `tests` folder. In order to facilitate code integration, we use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
-
-For the time being, AutoDiff package is not distributed on PyPI. Instead, any user can download or clone this project repository into their personal work directory. Installing this package can be done via command line interface with `pip3 install -r requirements.txt`. A detailed guide of installation can be found in the **How to Install and Use AutoDiff** section in this guide.
-
+A series of tests are written to provide full coverage of all the functions and classes defined in VayDiff, and are stored in the `tests` folder. In order to facilitate code integration, we use `TravisCI` and `Coveralls` to automate the testing process for every commit and push to the Github repository.
 
 ## Implementation
 
