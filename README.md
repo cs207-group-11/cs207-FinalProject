@@ -1,6 +1,6 @@
 # VayDiff [![Build Status](https://travis-ci.com/cs207-group-11/cs207-FinalProject.svg?branch=master)](https://travis-ci.com/cs207-group-11/cs207-FinalProject)[![Coverage Status](https://coveralls.io/repos/github/cs207-group-11/cs207-FinalProject/badge.svg?branch=master)](https://coveralls.io/github/cs207-group-11/cs207-FinalProject?branch=master)
 
-An Automatic Differentiation Library for Python 3. This project was done for CS207 at Harvard University, taught by Professor David Sondak.
+An Automatic Differentiation Library for Python 3. This project was done for CS207 at Harvard University, taught by Professor David Sondak. Check out our [Documentation](./docs/Final/documentation.md) for more details!
 
 ## How to Install
 
@@ -60,6 +60,8 @@ print(t.val, t.der['x'])
 ## Fractals!
 
 ![newton_fractal](./docs/Final/Figures/fractal.gif)
+
+Look at our [Feature](./Feature) section for examples and more fractals.
 
 ## Made By:
 
