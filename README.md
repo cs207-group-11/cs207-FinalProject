@@ -2,7 +2,7 @@
 
 An Automatic Differentiation Library for Python 3. This project was done for CS207 at Harvard University, taught by Professor David Sondak.
 
-## How to Install *VayDiff*
+## How to Install
 
 ### Installing via PyPI (for end-users)
 
