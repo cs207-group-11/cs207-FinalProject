@@ -327,6 +327,18 @@ def tanh(x):
 	except AttributeError:
 		return np.tanh(x)
 
+def arcsinh(x):
+	"""The hyperbolic arcsin or the arcsinh"""
+	raise NotImplementedError
+
+def arccosh(x):
+	"""The hyperbolic arccos or the arccosh"""
+	raise NotImplementedError
+
+def arctanh(x):
+	"""The hyperbolic arctan or the arctanh"""
+	raise NotImplementedError
+
 if __name__ == '__main__':
 	"""This part runs the doctest"""
 	import doctest

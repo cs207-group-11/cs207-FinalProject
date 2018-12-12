@@ -160,6 +160,14 @@ def test_problematic():
     a = Variable(val=2, name='a')
     with pytest.raises(ZeroDivisionError):
         t1 = Diff().auto_diff(function = div_zero, eval_point = [a])
+    with pytest.raises(NotImplementedError):
+        t1 = Diff().hessian(functions = [add_function], eval_points = [a])
+    with pytest.raises(NotImplementedError):
+        print(bm.arcsinh(1))
+    with pytest.raises(NotImplementedError):
+        print(bm.arccosh(1))
+    with pytest.raises(NotImplementedError):
+        print(bm.arctanh(1))
 
 def test_sanity_checks():
     assert(bm.log(4.1) == np.log(4.1))
@@ -174,6 +182,7 @@ def test_sanity_checks():
     assert(bm.sinh(2) == np.sinh(2))
     assert(bm.cosh(2) == np.cosh(2))
     assert(bm.tanh(2) == np.tanh(2))
+
 
 test_init()
 test_simple_operators()
