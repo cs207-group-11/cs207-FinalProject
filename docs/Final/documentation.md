@@ -173,7 +173,6 @@ Our implementation currently allows for a scalar or a vector function with a sin
 
 We would also like to allow uses to compute gradients for additional functions, which are defined below (note that not all these functions are continuous):
 
-- Exponents and logarithms: `log10`, `log2`, `logk` where k is an arbitrary base
 - Hyperbolic functions: `arcsinh`, `arccosh`, `arctanh`
 - Other functions: `logistic`
 
