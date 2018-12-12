@@ -42,7 +42,7 @@ In order to deactivate the virtual environment, use the following command
 deactivate
 ```
 
-## A small example
+## Example
 
 ```python
 from VayDiff.VayDiff import Variable
@@ -57,7 +57,7 @@ print(t.val, t.der['x'])
 9 6.0
 ```
 
-## A more interesting example: Fractals!
+## Fractals!
 
 ![newton_fractal](./docs/Final/Figures/fractal.gif)
 
