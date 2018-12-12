@@ -173,18 +173,13 @@ Our implementation currently allows for a scalar or a vector function with a sin
 
 We would also like to allow uses to compute gradients for additional functions, which are defined below (note that not all these functions are continuous):
 
-- Exponents and logarithms: log10, log2, log
-We are also planning to implement some additional features, and would need to work on these for both scalar as well as vector cases. These are outlined below:
-
 - Exponents and logarithms: `log10`, `log2`, `logk` where k is an arbitrary base
 - Hyperbolic functions: `arcsinh`, `arccosh`, `arctanh`
 - Other functions: `logistic`
 
 ### Additions to Newton's Fractal
 
-* Newton's Fractal
-   * Currently, our feature only supports complex function of one complex variable. As a next step, one could look into multivariate case where multiple Newton's fractals will be generated, one for each variable.
-
+Currently, our feature only supports complex function of one complex variable. As a next step, one could look into multivariate case where multiple Newton's fractals will be generated, one for each variable.
 
 ## References
 [1] M. T. Heath, “Scientific Computing: An Introductory Survey Chapter 8 - Numerical Integration and Differentiation,”[Online]. Accessed October 18th, 2018. Available: http://heath.cs.illinois.edu/scicomp/notes/chap08.pdf
