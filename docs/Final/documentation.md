@@ -103,20 +103,20 @@ VayDiff/
     tests/
         __init__.py
         tests.py
-		tests_jacobian.py
-		tests_sec_der.py
-		tests_vector.py
+	tests_jacobian.py
+	tests_sec_der.py
+	tests_vector.py
 docs/
     schematic_fig.png
     milestone1/
     	milestone1.md
     milestone2/
     	demo.ipynb
-		milestone2.md
+	milestone2.md
     Final/
         demo_VayDiff.ipynb
-		demo_Feature.ipynb
-		documentation.md
+	demo_Feature.ipynb
+	documentation.md
    	
 README.md
 setup.py
