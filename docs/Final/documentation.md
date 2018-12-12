@@ -12,7 +12,7 @@ In addition to the automatic differentiation package, we also come up with a new
 
 ![newton_fractal](./Figures/fractal.gif)
 
-## How to Install and Use *VayDiff*
+## How to Install *VayDiff*
 
 ### Installing via PyPI (for end-users)
 
