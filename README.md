@@ -59,7 +59,6 @@ print(t.val, t.der['x'])
 
 ## A more interesting example: Fractals!
 
-When we enter the function f(x)=x<sup>6</sup>-1, we will get the picture below:
 ![newton_fractal](./docs/Final/Figures/fractal.gif)
 
 ## Made By:
