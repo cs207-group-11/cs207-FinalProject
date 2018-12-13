@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name='VayDiff',
-    version='0.0.2',
+    version='0.0.3',
     author='Abhimanyu Vasishth, Zheyu Wu, Yiming Xu',
     author_email=" ",
     description='Python package for Automatic Differentiation',
