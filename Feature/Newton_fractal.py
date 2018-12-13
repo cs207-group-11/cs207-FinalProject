@@ -3,6 +3,8 @@ import sys
 from tkinter import *
 from PIL import Image
 from tqdm import tqdm
+import matplotlib as mpl
+mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.image as mpimg
