@@ -1,6 +1,6 @@
 ## Installation Guide
 
-This is documentation contains some installation guidance in running our feature - Newton's Fractal.
+This documentation contains some installation guidance in running our feature - Newton's Fractal.
 
 Assuming that you have a new environment in Python 3 created by:
 
