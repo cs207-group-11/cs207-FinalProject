@@ -14,7 +14,7 @@ pip install VayDiff
 
 ### Manual Installation (for developers)
 
-Clone or download our [GitHub repository](https://github.com/HIPS/autograd) and navigate into this directory in your terminal.
+Clone or download our [GitHub repository](https://github.com/cs207-group-11/cs207-FinalProject) and navigate into this directory in your terminal.
 
 Optional: create a virtual environment using `virtualenv`. This can be downloaded using `pip3` or `easy_install` as follows:
 
@@ -59,9 +59,9 @@ print(t.val, t.der['x'])
 
 ## Fractals!
 
-![newton_fractal](./docs/Final/Figures/fractal.gif)
+![newton_fractal](https://github.com/cs207-group-11/cs207-FinalProject/blob/master/docs/Final/Figures/fractal.gif)
 
-Look at our [Feature](./Feature) section for examples and more fractals.
+Look at our [Feature](https://github.com/cs207-group-11/cs207-FinalProject/tree/master/Feature) section for examples and more fractals.
 
 ## Made By:
 
