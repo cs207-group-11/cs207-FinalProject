@@ -4,13 +4,13 @@ This is documentation contains some installation guidance in running our feature
 
 Assuming that you have a new environment in Python 3 created by:
 
-- ```py
+- ```
   conda create --name my_env python=3.6
   ```
 
 Some additional packages need to be installed. Please run following commands to install necessary packages:
 
-* ```py
+* ```bash
   pip install Pillow
   pip install tqdm
   pip install matplotlib
@@ -18,7 +18,7 @@ Some additional packages need to be installed. Please run following commands to 
 
 If you want, you can also use the following script to automatically download all the necessary packages for you.
 
-- ```py
+- ```bash
   pip install -r requirements.txt
   ```
 
