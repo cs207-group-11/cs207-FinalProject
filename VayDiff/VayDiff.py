@@ -411,6 +411,10 @@ class Diff:
 				output[i][j] = ders[k]
 		return output
 
+	def hessian(self, functions, eval_points):
+		"""Return the Hessian of a list of functions."""
+		raise NotImplementedError
+
 if __name__ == '__main__':
 	"""This part runs the doctest"""
 	import doctest

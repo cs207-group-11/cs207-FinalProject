@@ -1,3 +1,5 @@
+## Installation Guide
+
 This is documentation contains some installation guidance in running our feature - Newton's Fractal.
 
 Assuming that you have a new environment in Python 3 created by:
@@ -26,3 +28,14 @@ Reference:
 
 Stack Overflow: https://stackoverflow.com/questions/21784641/installation-issue-with-matplotlib-python
 
+## Fractals!
+
+
+We provide a Graphical User Interface for our feature.
+![GUI](../docs/Final/Figures/Interface.png)
+
+When we enter the function f(x)=x<sup>6</sup>-1, we will get the picture below:
+![newton_fractal](../docs/Final/Figures/fractal.gif)
+
+When we click the `show gradient` button, we will get the animation of the root finding process. 
+![animation](../docs/Final/Figures/animation_cleaned.gif)

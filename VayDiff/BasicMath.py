@@ -29,6 +29,38 @@ def log(x):
 	except AttributeError:
 		return np.log(x)
 
+def logk(x, base=None):
+	"""Return the result of log to the base defined by the user.
+
+	INPUTS
+		x (Variable object or real number)
+		base (Non-negative number)
+
+	RETURNS
+		if x is a Variable, then return a Variable with val and der for that single variable.
+		if x is a real number, then return the value of np.log(x)/np.log(base).
+		if base is None, returns BasicMath.log(x)
+
+	EXAMPLES
+	>>> x = Variable(1, name='x')
+	>>> t = logk(x)
+	>>> print(t.val, t.der['x'])
+	0.0 1.0
+ 	"""
+	try:
+		val = np.log(x.val)/np.log(base)
+		ders = defaultdict(float)
+		sec_ders = defaultdict(float)
+		for key in x.der:
+			ders[key] += x.der[key]/x.val * (1/np.log(base))
+			sec_ders[key] += (x.val*x.sec_der[key] - (x.der[key])**2)/(np.log(base) * x.val**2)
+		return Variable(val, ders, sec_ders)
+	except AttributeError:
+		try:
+			return np.log(x)/np.log(base)
+		except AttributeError:
+			return log(x)
+
 def exp(x):
 	"""Return the result of exp.
 
@@ -326,6 +358,18 @@ def tanh(x):
 		return Variable(val, ders, sec_ders)
 	except AttributeError:
 		return np.tanh(x)
+
+def arcsinh(x):
+	"""The hyperbolic arcsin or the arcsinh"""
+	raise NotImplementedError
+
+def arccosh(x):
+	"""The hyperbolic arccos or the arccosh"""
+	raise NotImplementedError
+
+def arctanh(x):
+	"""The hyperbolic arctan or the arctanh"""
+	raise NotImplementedError
 
 if __name__ == '__main__':
 	"""This part runs the doctest"""

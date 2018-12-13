@@ -142,15 +142,29 @@ def test_trig():
 
 # Other functions
 def log_exp_function(x):
-    # log, exp
     return bm.log(x) + bm.exp(x)
+
+def logk_none(x):
+    return bm.logk(x) + 40 - 40
+
+def logk_e(x):
+    return bm.logk(x, bm.exp(1))
 
 def test_other_functions():
     a = Variable(val=1, name='a')
-    # log, exp
+
     t1 = Diff().auto_diff(function = log_exp_function, eval_point = [a])
     assert(t1.val == np.exp(1))
     assert(t1.der['a'] == np.exp(1) + 1)
+
+    t2 = Diff().auto_diff(function = logk_none, eval_point = [a])
+    assert(t2.val == 0)
+    assert(t2.der['a'] == 1)
+
+    a = Variable(10, name='a')
+    t3 = Diff().auto_diff(function = logk_e, eval_point = [a])
+    assert(t3.val == np.log(10))
+    assert(t3.der['a'] == 0.1)
 
 # Functions that could be problematic
 def div_zero(x):
@@ -160,6 +174,14 @@ def test_problematic():
     a = Variable(val=2, name='a')
     with pytest.raises(ZeroDivisionError):
         t1 = Diff().auto_diff(function = div_zero, eval_point = [a])
+    with pytest.raises(NotImplementedError):
+        t1 = Diff().hessian(functions = [add_function], eval_points = [a])
+    with pytest.raises(NotImplementedError):
+        print(bm.arcsinh(1))
+    with pytest.raises(NotImplementedError):
+        print(bm.arccosh(1))
+    with pytest.raises(NotImplementedError):
+        print(bm.arctanh(1))
 
 def test_sanity_checks():
     assert(bm.log(4.1) == np.log(4.1))
@@ -174,6 +196,7 @@ def test_sanity_checks():
     assert(bm.sinh(2) == np.sinh(2))
     assert(bm.cosh(2) == np.cosh(2))
     assert(bm.tanh(2) == np.tanh(2))
+    assert(bm.logk(2, np.exp(1)) == np.log(2))
 
 test_init()
 test_simple_operators()

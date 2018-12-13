@@ -10,6 +10,9 @@ def simple_op_complete (x,y):
 def log_exp(x,y):
     return bm.log(x*x) + x*bm.exp(y)
 
+def logk_test(x):
+    return bm.logk(x*x, base=10)
+
 def sqrt_fn(x,y):
     return x*bm.sqrt(x*y) + x*x*x
 
@@ -49,6 +52,9 @@ def test_operators():
     t6 = Diff().auto_diff(function = rpow_fn, eval_point = [a,b])
     np.testing.assert_approx_equal(t6.sec_der['a'], 2)
     np.testing.assert_approx_equal(t6.sec_der['b'], 9*np.log(3)**2)
+
+    t7 = Diff().auto_diff(function = logk_test, eval_point = [a])
+    np.testing.assert_approx_equal(t7.sec_der['a'], -2/(9*np.log(10)))
 
 def arcsin_fn(x,y):
     return -y*bm.arcsin(x*y)
